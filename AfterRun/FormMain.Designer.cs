@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
@@ -37,22 +38,24 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(109, 50);
+            this.btnOK.AccessibleDescription = null;
+            this.btnOK.AccessibleName = null;
+            resources.ApplyResources(this.btnOK, "btnOK");
+            this.btnOK.BackgroundImage = null;
+            this.btnOK.Font = null;
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(83, 21);
-            this.btnOK.TabIndex = 0;
-            this.btnOK.Text = "&OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.AccessibleDescription = null;
+            this.btnCancel.AccessibleName = null;
+            resources.ApplyResources(this.btnCancel, "btnCancel");
+            this.btnCancel.BackgroundImage = null;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(198, 49);
+            this.btnCancel.Font = null;
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(82, 22);
-            this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -65,27 +68,31 @@
             // 
             // labelTitle
             // 
-            this.labelTitle.AutoSize = true;
-            this.labelTitle.Location = new System.Drawing.Point(11, 11);
+            this.labelTitle.AccessibleDescription = null;
+            this.labelTitle.AccessibleName = null;
+            resources.ApplyResources(this.labelTitle, "labelTitle");
+            this.labelTitle.Font = null;
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(0, 12);
-            this.labelTitle.TabIndex = 2;
             // 
             // FormMain
             // 
             this.AcceptButton = this.btnOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = null;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(292, 83);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
+            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = null;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";
-            this.Text = "AfterRun";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

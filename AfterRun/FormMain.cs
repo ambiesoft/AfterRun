@@ -45,11 +45,11 @@ namespace AfterRun
 
             if (args.Length < 2)
             {
-                MessageBox.Show("ˆø”‚ª‚ ‚è‚Ü‚¹‚ñB");
+                MessageBox.Show(AfterRun.Properties.Resources.NoArguments);
                 Close();
             }
-
-            labelTitle.Text = args[1] + " ‚ð‹N“®‚µ‚Ü‚·B";
+            String s = String.Format(AfterRun.Properties.Resources.Launching, args[1]);
+            labelTitle.Text = s;
         }
 
         private void btnOK_Click(object sender, EventArgs e)

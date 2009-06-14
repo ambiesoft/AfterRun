@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>キャンセル(&amp;C)</value>
+  </data>
   <data name="Launching" xml:space="preserve">
-    <value>Launching {0}.</value>
+    <value>{0} を起動します。</value>
   </data>
   <data name="NoArguments" xml:space="preserve">
-    <value>No Arguments.</value>
+    <value>引数がありません。</value>
   </data>
 </root>
