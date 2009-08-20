@@ -47,6 +47,7 @@ namespace AfterRun
             {
                 MessageBox.Show(AfterRun.Properties.Resources.NoArguments);
                 Close();
+                return;
             }
             String s = String.Format(AfterRun.Properties.Resources.Launching, args[1]);
             labelTitle.Text = s;
