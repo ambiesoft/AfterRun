@@ -120,10 +120,4 @@
   <data name="btnCancel.Text" xml:space="preserve">
     <value>キャンセル(&amp;C)</value>
   </data>
-  <data name="Launching" xml:space="preserve">
-    <value>{0} を起動します。</value>
-  </data>
-  <data name="NoArguments" xml:space="preserve">
-    <value>引数がありません。</value>
-  </data>
 </root>

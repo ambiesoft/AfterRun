@@ -70,7 +70,25 @@ namespace AfterRun.Properties {
         }
         
         /// <summary>
-        ///   No Arguments. に類似しているローカライズされた文字列を検索します。
+        ///   Multiple Inputs に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MultipleInputs {
+            get {
+                return ResourceManager.GetString("MultipleInputs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No Arugment for interval value に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string NoArgumentForInterval {
+            get {
+                return ResourceManager.GetString("NoArgumentForInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   引数がありません に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string NoArguments {
             get {

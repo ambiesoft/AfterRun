@@ -18,11 +18,7 @@ namespace AfterRun
 
         private void Launch()
         {
-            String[] args = Environment.GetCommandLineArgs();
-            for (int i = 1; i < args.Length; ++i)
-            {
-                System.Diagnostics.Process.Start(args[i]);
-            }
+            System.Diagnostics.Process.Start(Program.exe_);
             Close();
         }
 
@@ -41,15 +37,13 @@ namespace AfterRun
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            String[] args = Environment.GetCommandLineArgs();
-
-            if (args.Length < 2)
+            if( string.IsNullOrEmpty(Program.exe_) )
             {
                 MessageBox.Show(AfterRun.Properties.Resources.NoArguments);
                 Close();
                 return;
             }
-            String s = String.Format(AfterRun.Properties.Resources.Launching, args[1]);
+            String s = String.Format(AfterRun.Properties.Resources.Launching, Program.exe_);
             labelTitle.Text = s;
         }
 
