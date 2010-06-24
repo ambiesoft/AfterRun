@@ -11,7 +11,7 @@ namespace AfterRun
         /// </summary>
         
         public static string exe_ = null;
-        public static int interval = 10;
+        public static int interval_ = 10;
 
         [STAThread]
         static void Main()
@@ -35,7 +35,7 @@ namespace AfterRun
                     }
                     ++i;
 
-                    Int32.TryParse(args[i], out interval);
+                    Int32.TryParse(args[i], out interval_);
                 }
                 else
                 {

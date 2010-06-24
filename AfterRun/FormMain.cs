@@ -45,6 +45,7 @@ namespace AfterRun
             }
             String s = String.Format(AfterRun.Properties.Resources.Launching, Program.exe_);
             labelTitle.Text = s;
+            timerMain.Tag = Program.interval_;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
