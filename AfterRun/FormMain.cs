@@ -25,6 +25,11 @@ namespace AfterRun
         private void timerMain_Tick(object sender, EventArgs e)
         {
             int n = Int32.Parse(timerMain.Tag.ToString());
+            if (n == -1)
+            {
+                return;
+            }
+
             n--;
             if (n < 0)
             {
@@ -45,7 +50,14 @@ namespace AfterRun
             }
             String s = String.Format(AfterRun.Properties.Resources.Launching, Program.exe_);
             labelTitle.Text = s;
-            timerMain.Tag = Program.interval_;
+            if (Program.interval_ == -1)
+            {
+                timerMain.Enabled = false;
+            }
+            else
+            {
+                timerMain.Tag = Program.interval_;
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)

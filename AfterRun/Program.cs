@@ -35,7 +35,14 @@ namespace AfterRun
                     }
                     ++i;
 
-                    Int32.TryParse(args[i], out interval_);
+                    if (args[i] == "m")
+                    {
+                        interval_ = -1;
+                    }
+                    else
+                    {
+                        Int32.TryParse(args[i], out interval_);
+                    }
                 }
                 else
                 {

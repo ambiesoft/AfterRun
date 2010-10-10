@@ -1,8 +1,8 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <StartArguments>-t 30 notepad.exe</StartArguments>
+    <StartArguments>-t 19 notepad.exe</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <StartArguments>-t 30 notepad.exe</StartArguments>
+    <StartArguments>-t 19 notepad.exe</StartArguments>
   </PropertyGroup>
 </Project>
