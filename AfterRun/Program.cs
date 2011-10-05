@@ -13,6 +13,20 @@ namespace AfterRun
         public static string exe_ = null;
         public static int interval_ = 10;
 
+        static void messageWithHelp(string message)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.AppendLine(message);
+            sb.AppendLine();
+            sb.AppendLine(AfterRun.Properties.Resources.HelpString);
+
+            MessageBox.Show(sb.ToString(),
+                Application.ProductName,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+        }
+
         [STAThread]
         static void Main()
         {
@@ -20,7 +34,7 @@ namespace AfterRun
 
             if (args.Length < 2)
             {
-                MessageBox.Show(AfterRun.Properties.Resources.NoArguments);
+                messageWithHelp(AfterRun.Properties.Resources.NoArguments);
                 return;
             }
 
@@ -30,7 +44,7 @@ namespace AfterRun
                 {
                     if ((i - 1) == args.Length)
                     {
-                        MessageBox.Show(AfterRun.Properties.Resources.NoArgumentForInterval);
+                        messageWithHelp(AfterRun.Properties.Resources.NoArgumentForInterval);
                         return;
                     }
                     ++i;
@@ -48,7 +62,7 @@ namespace AfterRun
                 {
                     if (exe_ != null)
                     {
-                        MessageBox.Show(AfterRun.Properties.Resources.MultipleInputs);
+                        messageWithHelp(AfterRun.Properties.Resources.MultipleInputs);
                         return;
                     }
 

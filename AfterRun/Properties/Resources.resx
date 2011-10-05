@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="HelpString" xml:space="preserve">
+    <value>ex: afterrun -t waittime exefile</value>
+  </data>
   <data name="Launching" xml:space="preserve">
     <value>Launching {0}.</value>
   </data>
