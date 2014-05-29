@@ -25,7 +25,7 @@ namespace AfterRun
             MessageBox.Show(sb.ToString(),
                 Application.ProductName,
                 MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+                MessageBoxIcon.Error);
 
         }
 
@@ -52,18 +52,27 @@ namespace AfterRun
                     }
                     ++i;
 
+                    if (intervalset)
+                    {
+                        messageWithHelp(AfterRun.Properties.Resources.NoArgumentForInterval);
+                        return;
+                    }
+
                     if (args[i] == "m")
                     {
                         interval_ = -1;
+                        intervalset = true;
                     }
                     else
                     {
-                        if (intervalset)
+                        if (!Int32.TryParse(args[i], out interval_))
                         {
-                            messageWithHelp(AfterRun.Properties.Resources.NoArgumentForInterval);
+                            string message = AfterRun.Properties.Resources.InvalidInterval;
+                            message += " : ";
+                            message += args[i];
+                            messageWithHelp(message);
                             return;
                         }
-                        Int32.TryParse(args[i], out interval_);
                         intervalset = true;
                     }
                 }

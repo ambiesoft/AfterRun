@@ -1,0 +1,3 @@
+-t interval : in sec
+-c : center
+-m : topmost

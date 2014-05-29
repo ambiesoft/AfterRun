@@ -70,6 +70,15 @@ namespace AfterRun.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Interval.
+        /// </summary>
+        internal static string InvalidInterval {
+            get {
+                return ResourceManager.GetString("InvalidInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Launching {0}..
         /// </summary>
         internal static string Launching {
