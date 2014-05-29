@@ -14,6 +14,15 @@ namespace AfterRun
         public FormMain()
         {
             InitializeComponent();
+            if (Program.iscenter_)
+            {
+                this.StartPosition = FormStartPosition.CenterScreen;
+            }
+
+            if (Program.istopmost_)
+            {
+                this.TopMost = true;
+            }
         }
 
         private void Launch()

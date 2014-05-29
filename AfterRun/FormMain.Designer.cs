@@ -38,23 +38,15 @@
             // 
             // btnOK
             // 
-            this.btnOK.AccessibleDescription = null;
-            this.btnOK.AccessibleName = null;
             resources.ApplyResources(this.btnOK, "btnOK");
-            this.btnOK.BackgroundImage = null;
-            this.btnOK.Font = null;
             this.btnOK.Name = "btnOK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.AccessibleDescription = null;
-            this.btnCancel.AccessibleName = null;
-            resources.ApplyResources(this.btnCancel, "btnCancel");
-            this.btnCancel.BackgroundImage = null;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Font = null;
+            resources.ApplyResources(this.btnCancel, "btnCancel");
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -68,31 +60,22 @@
             // 
             // labelTitle
             // 
-            this.labelTitle.AccessibleDescription = null;
-            this.labelTitle.AccessibleName = null;
             resources.ApplyResources(this.labelTitle, "labelTitle");
-            this.labelTitle.Font = null;
             this.labelTitle.Name = "labelTitle";
             // 
             // FormMain
             // 
             this.AcceptButton = this.btnOK;
-            this.AccessibleDescription = null;
-            this.AccessibleName = null;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = null;
             this.CancelButton = this.btnCancel;
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = null;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

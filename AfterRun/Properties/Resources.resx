@@ -126,6 +126,9 @@
   <data name="MultipleInputs" xml:space="preserve">
     <value>Multiple Inputs</value>
   </data>
+  <data name="MultipleIntervals" xml:space="preserve">
+    <value>Multiple Interval Values</value>
+  </data>
   <data name="NoArgumentForInterval" xml:space="preserve">
     <value>No Arugment for interval value</value>
   </data>

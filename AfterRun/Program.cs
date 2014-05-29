@@ -12,6 +12,8 @@ namespace AfterRun
         
         public static string exe_ = null;
         public static int interval_ = 10;
+        public static bool iscenter_ = false;
+        public static bool istopmost_ = false;
 
         static void messageWithHelp(string message)
         {
@@ -38,6 +40,7 @@ namespace AfterRun
                 return;
             }
 
+            bool intervalset = false;
             for (int i = 1; i < args.Length; ++i)
             {
                 if (args[i].StartsWith("-t"))
@@ -55,11 +58,25 @@ namespace AfterRun
                     }
                     else
                     {
+                        if (intervalset)
+                        {
+                            messageWithHelp(AfterRun.Properties.Resources.NoArgumentForInterval);
+                            return;
+                        }
                         Int32.TryParse(args[i], out interval_);
+                        intervalset = true;
                     }
                 }
-                else
+                else if (args[i].StartsWith("-c"))
                 {
+                    iscenter_ = true;
+                }
+                else if (args[i].StartsWith("-m"))
+                {
+                    istopmost_ = true;
+                }
+                else
+                {  // main arg
                     if (exe_ != null)
                     {
                         messageWithHelp(AfterRun.Properties.Resources.MultipleInputs);
