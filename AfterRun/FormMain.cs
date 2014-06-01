@@ -27,6 +27,8 @@ namespace AfterRun
 
         private void Launch()
         {
+
+
             System.Diagnostics.Process.Start(Program.exe_);
             Close();
         }
@@ -42,10 +44,18 @@ namespace AfterRun
             n--;
             if (n < 0)
             {
+                if (!EnableLaunch)
+                    return;
+
+                EnableLaunch = false;
+                
                 Launch();
+
+                return;
             }
 
             btnOK.Text = "OK" + " (" + n + ")";
+            this.Text = n.ToString() + " | " + Program.exe_ + " | " + Application.ProductName;
             timerMain.Tag = n;
         }
 
@@ -69,8 +79,25 @@ namespace AfterRun
             }
         }
 
+        private bool EnableLaunch
+        {
+            get
+            {
+                return btnOK.Enabled;
+            }
+            set
+            {
+                btnOK.Enabled = value;
+                timerMain.Enabled = value;
+            }
+        }
+
         private void btnOK_Click(object sender, EventArgs e)
         {
+            if (!EnableLaunch)
+                return;
+
+            EnableLaunch = false;
             Launch();
         }
 
