@@ -14,6 +14,7 @@ namespace AfterRun
         public static int interval_ = 10;
         public static bool iscenter_ = false;
         public static bool istopmost_ = false;
+        public static System.Diagnostics.ProcessWindowStyle pws_ = System.Diagnostics.ProcessWindowStyle.Normal;
 
         static void messageWithHelp(string message)
         {
@@ -83,6 +84,43 @@ namespace AfterRun
                 else if (args[i].StartsWith("-m"))
                 {
                     istopmost_ = true;
+                }
+                else if (args[i].StartsWith("-ws"))
+                {
+                    if ((i - 1) == args.Length)
+                    {
+                        messageWithHelp(AfterRun.Properties.Resources.NoArgumentForWindowStyle);
+                        return;
+                    }
+                    ++i;
+                    if (args[i] == "normal")
+                    {
+                        pws_ = System.Diagnostics.ProcessWindowStyle.Normal;
+                    }
+                    else if (args[i] == "minimized")
+                    {
+                        pws_ = System.Diagnostics.ProcessWindowStyle.Minimized;
+                    }
+                    else if (args[i] == "maximized")
+                    {
+                        pws_ = System.Diagnostics.ProcessWindowStyle.Maximized;
+                    }
+                    else
+                    {
+                        string message = AfterRun.Properties.Resources.InvalidWindowStyle;
+                        message += " : ";
+                        message += args[i];
+                        messageWithHelp(message);
+                        return;
+                    }
+                }
+                else if (args[i].StartsWith("-"))
+                {
+                    string message = AfterRun.Properties.Resources.UnknownOption;
+                    message += " : ";
+                    message += args[i];
+                    messageWithHelp(message);
+                    return;
                 }
                 else
                 {  // main arg

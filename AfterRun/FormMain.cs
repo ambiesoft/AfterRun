@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using CommandLine.Utility;
+using System.Diagnostics;
 
 namespace AfterRun
 {
@@ -28,8 +29,21 @@ namespace AfterRun
         private void Launch()
         {
 
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.FileName = Program.exe_;
+            psi.WindowStyle = Program.pws_;
 
-            System.Diagnostics.Process.Start(Program.exe_);
+            try
+            {
+                System.Diagnostics.Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    Application.ProductName,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
             Close();
         }
 
