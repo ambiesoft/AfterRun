@@ -33,6 +33,8 @@ namespace AfterRun
         [STAThread]
         static void Main()
         {
+            Ambiesoft.CppUtils.AmbSetProcessDPIAware();
+
             String[] args = Environment.GetCommandLineArgs();
 
             if (args.Length < 2)
