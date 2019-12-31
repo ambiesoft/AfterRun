@@ -65,7 +65,7 @@ namespace Ambiesoft.AfterRunLib
 
                     if (args[i] == "m")
                     {
-                        form.interval_ = -1;
+                        form.Interval = -1;
                         intervalset = true;
                     }
                     else
@@ -79,17 +79,17 @@ namespace Ambiesoft.AfterRunLib
                             messageWithHelp(message);
                             return;
                         }
-                        form.interval_ = intval;
+                        form.Interval = intval;
                         intervalset = true;
                     }
                 }
                 else if (args[i].StartsWith("-c"))
                 {
-                    form.InitStartPosition = FormStartPosition.CenterScreen;
+                    form.StartPosition = FormStartPosition.CenterScreen;
                 }
                 else if (args[i].StartsWith("-m"))
                 {
-                    form.InitTopMost = true;
+                    form.TopMost = true;
                 }
                 else if (args[i].StartsWith("-ws"))
                 {
@@ -101,15 +101,15 @@ namespace Ambiesoft.AfterRunLib
                     ++i;
                     if (args[i] == "normal")
                     {
-                        form.pws_ = System.Diagnostics.ProcessWindowStyle.Normal;
+                        form.LaunchingProcessWindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
                     }
                     else if (args[i] == "minimized")
                     {
-                        form.pws_ = System.Diagnostics.ProcessWindowStyle.Minimized;
+                        form.LaunchingProcessWindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
                     }
                     else if (args[i] == "maximized")
                     {
-                        form.pws_ = System.Diagnostics.ProcessWindowStyle.Maximized;
+                        form.LaunchingProcessWindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized;
                     }
                     else
                     {

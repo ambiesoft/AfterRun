@@ -13,20 +13,20 @@ namespace Ambiesoft.AfterRunLib
     public partial class FormMain : Form
     {
         public string exe_ = null;
-        public int interval_ = 10;
-        public FormStartPosition InitStartPosition = default(FormStartPosition);
-        public bool InitTopMost = false;
-        public System.Diagnostics.ProcessWindowStyle pws_ = System.Diagnostics.ProcessWindowStyle.Normal;
+        public int Interval = 10;
+        // public FormStartPosition InitStartPosition = default(FormStartPosition);
+        // public bool InitTopMost = false;
+        public System.Diagnostics.ProcessWindowStyle LaunchingProcessWindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
         public bool IsShutdown = false;
 
         public FormMain()
         {
             InitializeComponent();
 
-            if (InitStartPosition != default(FormStartPosition))
-                StartPosition = InitStartPosition;
+            //if (InitStartPosition != default(FormStartPosition))
+            //    StartPosition = InitStartPosition;
 
-            this.TopMost = InitTopMost;
+            //this.TopMost = InitTopMost;
         }
 
         private void Launch()
@@ -35,7 +35,7 @@ namespace Ambiesoft.AfterRunLib
             {
                 ProcessStartInfo psi = new ProcessStartInfo();
                 psi.FileName = exe_;
-                psi.WindowStyle = pws_;
+                psi.WindowStyle = LaunchingProcessWindowStyle;
 
                 try
                 {
@@ -100,13 +100,13 @@ namespace Ambiesoft.AfterRunLib
                 labelTitle.Text = Properties.Resources.Shutdowning;
             }
 
-            if (interval_ == -1)
+            if (Interval == -1)
             {
                 timerMain.Enabled = false;
             }
             else
             {
-                timerMain.Tag = interval_;
+                timerMain.Tag = Interval;
             }
         }
 
