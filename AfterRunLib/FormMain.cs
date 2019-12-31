@@ -8,41 +8,50 @@ using System.Windows.Forms;
 using CommandLine.Utility;
 using System.Diagnostics;
 
-namespace AfterRun
+namespace Ambiesoft.AfterRunLib
 {
     public partial class FormMain : Form
     {
+        public string exe_ = null;
+        public int interval_ = 10;
+        public FormStartPosition InitStartPosition = default(FormStartPosition);
+        public bool InitTopMost = false;
+        public System.Diagnostics.ProcessWindowStyle pws_ = System.Diagnostics.ProcessWindowStyle.Normal;
+        public bool IsShutdown = false;
+
         public FormMain()
         {
             InitializeComponent();
-            if (Program.iscenter_)
-            {
-                this.StartPosition = FormStartPosition.CenterScreen;
-            }
 
-            if (Program.istopmost_)
-            {
-                this.TopMost = true;
-            }
+            if (InitStartPosition != default(FormStartPosition))
+                StartPosition = InitStartPosition;
+
+            this.TopMost = InitTopMost;
         }
 
         private void Launch()
         {
-
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = Program.exe_;
-            psi.WindowStyle = Program.pws_;
-
-            try
+            if (!IsShutdown)
             {
-                System.Diagnostics.Process.Start(psi);
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = exe_;
+                psi.WindowStyle = pws_;
+
+                try
+                {
+                    System.Diagnostics.Process.Start(psi);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                        Application.ProductName,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message,
-                    Application.ProductName,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                AmbLib.ExitWin(AmbLib.EXITWINTYPE.EXITWIN_SHUTDOWN);
             }
             Close();
         }
@@ -69,27 +78,35 @@ namespace AfterRun
             }
 
             btnOK.Text = "OK" + " (" + n + ")";
-            this.Text = n.ToString() + " | " + Program.exe_ + " | " + Application.ProductName;
+            this.Text = n.ToString() + " | " + exe_ + " | " + Application.ProductName;
             timerMain.Tag = n;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            if( string.IsNullOrEmpty(Program.exe_) )
+            if( !IsShutdown && string.IsNullOrEmpty(exe_) )
             {
-                MessageBox.Show(AfterRun.Properties.Resources.NoArguments);
+                MessageBox.Show(Properties.Resources.NoArguments);
                 Close();
                 return;
             }
-            String s = String.Format(AfterRun.Properties.Resources.Launching, Program.exe_);
-            labelTitle.Text = s;
-            if (Program.interval_ == -1)
+            if (!IsShutdown)
+            {
+                String s = String.Format(Properties.Resources.Launching, exe_);
+                labelTitle.Text = s;
+            }
+            else
+            {
+                labelTitle.Text = Properties.Resources.Shutdowning;
+            }
+
+            if (interval_ == -1)
             {
                 timerMain.Enabled = false;
             }
             else
             {
-                timerMain.Tag = Program.interval_;
+                timerMain.Tag = interval_;
             }
         }
 
