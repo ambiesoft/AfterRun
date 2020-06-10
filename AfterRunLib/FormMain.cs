@@ -12,7 +12,7 @@ namespace Ambiesoft.AfterRunLib
 {
     public partial class FormMain : Form
     {
-        public string exe_ = null;
+        public List<string> exes_ = new List<string>();
         public int Interval = 10;
         // public FormStartPosition InitStartPosition = default(FormStartPosition);
         // public bool InitTopMost = false;
@@ -33,20 +33,23 @@ namespace Ambiesoft.AfterRunLib
         {
             if (!IsShutdown)
             {
-                ProcessStartInfo psi = new ProcessStartInfo();
-                psi.FileName = exe_;
-                psi.WindowStyle = LaunchingProcessWindowStyle;
+                foreach (string exe in exes_)
+                {
+                    ProcessStartInfo psi = new ProcessStartInfo();
+                    psi.FileName = exe;
+                    psi.WindowStyle = LaunchingProcessWindowStyle;
 
-                try
-                {
-                    System.Diagnostics.Process.Start(psi);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message,
-                        Application.ProductName,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                    try
+                    {
+                        System.Diagnostics.Process.Start(psi);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message,
+                            Application.ProductName,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
                 }
             }
             else
@@ -78,13 +81,13 @@ namespace Ambiesoft.AfterRunLib
             }
 
             btnOK.Text = "OK" + " (" + n + ")";
-            this.Text = n.ToString() + " | " + exe_ + " | " + Application.ProductName;
+            this.Text = n.ToString() + " | " + string.Join(" ",exes_) + " | " + Application.ProductName;
             timerMain.Tag = n;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            if( !IsShutdown && string.IsNullOrEmpty(exe_) )
+            if (!IsShutdown && exes_.Count == 0)
             {
                 MessageBox.Show(Properties.Resources.NoArguments);
                 Close();
@@ -92,7 +95,8 @@ namespace Ambiesoft.AfterRunLib
             }
             if (!IsShutdown)
             {
-                String s = String.Format(Properties.Resources.Launching, exe_);
+                String s = String.Format(Properties.Resources.Launching,
+                    string.Join(" ", exes_));
                 labelTitle.Text = s;
             }
             else

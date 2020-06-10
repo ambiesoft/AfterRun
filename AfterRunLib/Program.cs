@@ -130,13 +130,13 @@ namespace Ambiesoft.AfterRunLib
                 }
                 else
                 {  // main arg
-                    if (form.exe_ != null)
-                    {
-                        messageWithHelp(Properties.Resources.MultipleInputs);
-                        return;
-                    }
+                    //if (form.exe_ != null)
+                    //{
+                    //    messageWithHelp(Properties.Resources.MultipleInputs);
+                    //    return;
+                    //}
 
-                    form.exe_ = args[i];
+                    form.exes_.Add(args[i]);
                 }
             }
 
