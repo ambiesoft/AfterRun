@@ -158,6 +158,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)Dist\ReadMe.txt $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>copy $(ProjectDir)Dist\ReadMe.txt $(TargetDir)AfterRunLib.ReadMe.txt</PostBuildEvent>
   </PropertyGroup>
 </Project>

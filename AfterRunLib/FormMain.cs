@@ -112,6 +112,11 @@ namespace Ambiesoft.AfterRunLib
             {
                 timerMain.Tag = Interval;
             }
+
+            //if(TopMost)
+            //{
+            //    MessageBox.Show("TOPMMMMMMMM");
+            //}
         }
 
         private bool EnableLaunch
