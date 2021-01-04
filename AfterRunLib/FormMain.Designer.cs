@@ -77,6 +77,7 @@
             this.MinimizeBox = false;
             this.Name = "FormMain";
             this.Load += new System.EventHandler(this.FormMain_Load);
+            this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

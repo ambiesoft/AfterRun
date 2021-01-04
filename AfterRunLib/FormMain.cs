@@ -145,5 +145,14 @@ namespace Ambiesoft.AfterRunLib
         {
             Close();
         }
+
+        private void FormMain_Shown(object sender, EventArgs e)
+        {
+            if(TopMost)
+            {
+                TopMost = false;
+                TopMost = true;
+            }
+        }
     }
 }
