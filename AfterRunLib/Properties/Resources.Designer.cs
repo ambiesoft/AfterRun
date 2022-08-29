@@ -61,7 +61,14 @@ namespace Ambiesoft.AfterRunLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ex: afterrun -t waittime exefile.
+        ///   Looks up a localized string similar to Afterrun : Run executable after specified time
+        ///
+        ///ex: afterrun -t SecToWait exefile
+        ///
+        ///-c : Position window at Center
+        ///-m : Set window Topmost
+        ///-t : Seconds to wait, or &apos;m&apos; to wait forever
+        ///-ws : Set &apos;normal&apos; for showing in normal window, &apos;minimized&apos; for minimized window or &apos;maximized&apos; for maximized window.
         /// </summary>
         internal static string HelpString {
             get {

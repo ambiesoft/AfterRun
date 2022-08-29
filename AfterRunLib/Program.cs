@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Ambiesoft.AfterRunLib
@@ -9,27 +10,34 @@ namespace Ambiesoft.AfterRunLib
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
-        
-        
-        
-        
-        
-        
 
-        static void messageWithHelp(string message)
+
+
+
+
+
+
+        static void messageWithHelp(string message, MessageBoxIcon icon)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.AppendLine(message);
-            sb.AppendLine();
+            if (!string.IsNullOrEmpty(message))
+            {
+                sb.AppendLine(message);
+                sb.AppendLine();
+            }
             sb.AppendLine(Properties.Resources.HelpString);
 
             MessageBox.Show(sb.ToString(),
-                Application.ProductName,
+                string.Format("{0} v{1}",
+                    Application.ProductName,
+                    AmbLib.getAssemblyVersion(Assembly.GetExecutingAssembly(),3)),
                 MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-
+                icon);
         }
-
+        static void messageWithHelp(string message)
+        { 
+            messageWithHelp(message,MessageBoxIcon.Error);
+        }
         [STAThread]
         public static void Main(String[] args)
         {
@@ -48,7 +56,26 @@ namespace Ambiesoft.AfterRunLib
             bool intervalset = false;
             for (int i = 1; i < args.Length; ++i)
             {
-                if (args[i].StartsWith("-t"))
+                if(false)
+                { }
+                else if (args[i].StartsWith("-c"))
+                {
+                    form.StartPosition = FormStartPosition.CenterScreen;
+                }
+                else if (args[i].StartsWith("-m"))
+                {
+                    form.TopMost = true;
+                }
+                else if (args[i].ToLower().StartsWith("-h") ||
+                    args[i].ToLower().StartsWith("-help") ||
+                    args[i].ToLower().StartsWith("--help") ||
+                    args[i].ToLower().StartsWith("/h") ||
+                    args[i].ToLower().StartsWith("/?"))
+                {
+                    messageWithHelp("", MessageBoxIcon.Information);
+                    return;
+                }
+                else if (args[i].StartsWith("-t"))
                 {
                     if ((i - 1) == args.Length)
                     {
@@ -71,7 +98,7 @@ namespace Ambiesoft.AfterRunLib
                     else
                     {
                         int intval;
-                        if (!Int32.TryParse(args[i], out intval ))
+                        if (!Int32.TryParse(args[i], out intval))
                         {
                             string message = Ambiesoft.AfterRunLib.Properties.Resources.InvalidInterval;
                             message += " : ";
@@ -82,14 +109,6 @@ namespace Ambiesoft.AfterRunLib
                         form.Interval = intval;
                         intervalset = true;
                     }
-                }
-                else if (args[i].StartsWith("-c"))
-                {
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                }
-                else if (args[i].StartsWith("-m"))
-                {
-                    form.TopMost = true;
                 }
                 else if (args[i].StartsWith("-ws"))
                 {
@@ -120,7 +139,7 @@ namespace Ambiesoft.AfterRunLib
                         return;
                     }
                 }
-                else if (args[i].StartsWith("-"))
+                else if (args[i].StartsWith("-") || args[i].StartsWith("/"))
                 {
                     string message = Properties.Resources.UnknownOption;
                     message += " : ";
@@ -129,13 +148,7 @@ namespace Ambiesoft.AfterRunLib
                     return;
                 }
                 else
-                {  // main arg
-                    //if (form.exe_ != null)
-                    //{
-                    //    messageWithHelp(Properties.Resources.MultipleInputs);
-                    //    return;
-                    //}
-
+                {
                     form.exes_.Add(args[i]);
                 }
             }

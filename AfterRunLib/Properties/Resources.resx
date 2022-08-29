@@ -118,7 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HelpString" xml:space="preserve">
-    <value>ex: afterrun -t waittime exefile</value>
+    <value>Afterrun : Run executable after specified time
+
+ex: afterrun -t SecToWait exefile
+
+-c : Position window at Center
+-m : Set window Topmost
+-t : Seconds to wait, or 'm' to wait forever
+-ws : Set 'normal' for showing in normal window, 'minimized' for minimized window or 'maximized' for maximized window</value>
   </data>
   <data name="InvalidInterval" xml:space="preserve">
     <value>Invalid Interval</value>
