@@ -123,10 +123,13 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 60</value>
+    <value>220, 92</value>
+  </data>
+  <data name="btnOK.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 23</value>
+    <value>124, 35</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnOK.TabIndex" type="System.Int32, mscorlib">
@@ -151,10 +154,13 @@
     <value>Bottom, Right</value>
   </data>
   <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>236, 60</value>
+    <value>354, 92</value>
+  </data>
+  <data name="btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 24</value>
+    <value>123, 37</value>
   </data>
   <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -184,10 +190,13 @@
     <value>True</value>
   </data>
   <data name="labelTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 9</value>
+    <value>18, 14</value>
+  </data>
+  <data name="labelTitle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="labelTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 13</value>
+    <value>35, 20</value>
   </data>
   <data name="labelTitle.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -211,10 +220,10 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>9, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>330, 96</value>
+    <value>495, 148</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4903,6 +4912,9 @@
         AAB//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//
         AAA=
 </value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>AfterRun</value>

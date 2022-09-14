@@ -13,7 +13,9 @@ namespace Ambiesoft.AfterRunLib
     public partial class FormMain : Form
     {
         public List<string> exes_ = new List<string>();
-        public int Interval = 10;
+        public int? Interval = null;
+        public List<int> pidsToWait = null;
+
         // public FormStartPosition InitStartPosition = default(FormStartPosition);
         // public bool InitTopMost = false;
         public System.Diagnostics.ProcessWindowStyle LaunchingProcessWindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
@@ -22,15 +24,14 @@ namespace Ambiesoft.AfterRunLib
         public FormMain()
         {
             InitializeComponent();
-
-            //if (InitStartPosition != default(FormStartPosition))
-            //    StartPosition = InitStartPosition;
-
-            //this.TopMost = InitTopMost;
         }
 
-        private void Launch()
+        private void LaunchAndClose()
         {
+            if (!EnableLaunch)
+                return;
+            EnableLaunch = false;
+
             if (!IsShutdown)
             {
                 foreach (string exe in exes_)
@@ -61,6 +62,36 @@ namespace Ambiesoft.AfterRunLib
 
         private void timerMain_Tick(object sender, EventArgs e)
         {
+            Debug.Assert(timerMain.Tag != null);
+            if (timerMain.Tag is int)
+            {
+                timerMain_TickCountDown();
+            }
+            else if (timerMain.Tag is List<int>)
+            {
+                timerMain_TickWaitPidsToTerminate();
+            }
+            else
+            {
+                Debug.Assert(false);
+            }
+        }
+        void timerMain_TickWaitPidsToTerminate()
+        {
+            var waitsPid = new List<int>(pidsToWait);
+            foreach (Process p in Process.GetProcesses())
+            {
+                if (pidsToWait.Contains(p.Id))
+                {
+                    // process still exists
+                    return;
+                }
+            }
+            LaunchAndClose();
+        }
+
+        private void timerMain_TickCountDown()
+        {
             int n = Int32.Parse(timerMain.Tag.ToString());
             if (n == -1)
             {
@@ -70,18 +101,12 @@ namespace Ambiesoft.AfterRunLib
             n--;
             if (n < 0)
             {
-                if (!EnableLaunch)
-                    return;
-
-                EnableLaunch = false;
-                
-                Launch();
-
+                LaunchAndClose();
                 return;
             }
 
             btnOK.Text = "OK" + " (" + n + ")";
-            this.Text = n.ToString() + " | " + string.Join(" ",exes_) + " | " + Application.ProductName;
+            this.Text = n.ToString() + " | " + string.Join(" ", exes_) + " | " + Application.ProductName;
             timerMain.Tag = n;
         }
 
@@ -104,19 +129,30 @@ namespace Ambiesoft.AfterRunLib
                 labelTitle.Text = Properties.Resources.Shutdowning;
             }
 
-            if (Interval == -1)
+            if (Interval != null)
             {
-                timerMain.Enabled = false;
+                Text = "CountDown" + " " + Text;
+                if (Interval == -1)
+                {
+                    timerMain.Enabled = false;
+                }
+                else
+                {
+                    timerMain.Tag = Interval;
+                }
+            }
+            else if (pidsToWait != null)
+            {
+                Text = "Wait Process" + " " + Text;
+                timerMain.Interval = 5000;
+                timerMain.Tag = pidsToWait;
             }
             else
             {
-                timerMain.Tag = Interval;
+                Debug.Assert(true);
+                Close();
             }
-
-            //if(TopMost)
-            //{
-            //    MessageBox.Show("TOPMMMMMMMM");
-            //}
+            timerMain.Enabled = true;
         }
 
         private bool EnableLaunch
@@ -138,7 +174,7 @@ namespace Ambiesoft.AfterRunLib
                 return;
 
             EnableLaunch = false;
-            Launch();
+            LaunchAndClose();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

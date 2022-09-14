@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Ambiesoft.AfterRunLib
 {
@@ -38,6 +40,22 @@ namespace Ambiesoft.AfterRunLib
         { 
             messageWithHelp(message,MessageBoxIcon.Error);
         }
+
+        static public bool IsNumeric(string value)
+        {
+            return value.All(char.IsNumber);
+        }
+
+        static bool ProcessExists(int pid)
+        {
+            foreach(var p in Process.GetProcesses())
+            {
+                if(p.Id==pid) 
+                    return true;
+            }
+            return false;
+        }
+
         [STAThread]
         public static void Main(String[] args)
         {
@@ -51,9 +69,11 @@ namespace Ambiesoft.AfterRunLib
                 return;
             }
 
+            int? interval = null;
+            List<int> pidsToWait = new List<int>();
+
             FormMain form = new FormMain();
 
-            bool intervalset = false;
             for (int i = 1; i < args.Length; ++i)
             {
                 if(false)
@@ -75,6 +95,31 @@ namespace Ambiesoft.AfterRunLib
                     messageWithHelp("", MessageBoxIcon.Information);
                     return;
                 }
+                else if (args[i].StartsWith("-p"))
+                {
+                    if ((i - 1) == args.Length)
+                    {
+                        messageWithHelp(Properties.Resources.NoArgumentForProcessId);
+                        return;
+                    }
+                    ++i;
+
+                    if (!IsNumeric( args[i]))
+                    {
+                        messageWithHelp(
+                            string.Format(Properties.Resources.InvalidProcessId, args[i]));
+                        return;
+                    }
+
+                    int pid = int.Parse(args[i]);
+                    if(!ProcessExists(pid))
+                    {
+                        messageWithHelp(
+                            string.Format(Properties.Resources.PIDNotFound, pid));
+                        return;
+                    }
+                    pidsToWait.Add(pid);
+                }
                 else if (args[i].StartsWith("-t"))
                 {
                     if ((i - 1) == args.Length)
@@ -84,16 +129,15 @@ namespace Ambiesoft.AfterRunLib
                     }
                     ++i;
 
-                    if (intervalset)
+                    if (interval != null)
                     {
-                        messageWithHelp(Properties.Resources.NoArgumentForInterval);
+                        messageWithHelp(Properties.Resources.IntervalAlreadySet);
                         return;
                     }
 
                     if (args[i] == "m")
                     {
-                        form.Interval = -1;
-                        intervalset = true;
+                        interval = -1;
                     }
                     else
                     {
@@ -106,8 +150,7 @@ namespace Ambiesoft.AfterRunLib
                             messageWithHelp(message);
                             return;
                         }
-                        form.Interval = intval;
-                        intervalset = true;
+                        interval= intval;
                     }
                 }
                 else if (args[i].StartsWith("-ws"))
@@ -153,6 +196,13 @@ namespace Ambiesoft.AfterRunLib
                 }
             }
 
+            if(interval != null && pidsToWait.Count!=0)
+            {
+                messageWithHelp("-c and -p catnot");
+                return;
+            }
+            form.Interval = interval;
+            form.pidsToWait = pidsToWait;
             Application.Run(form);
         }
     }

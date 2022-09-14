@@ -1,6 +1,10 @@
+2022/09/14 v2.0.3
+Added feature: Waits pid to finish
+
+2022/08/30 v2.0.2
+Switched to .NET4.5.2
+
 2022/08/29 v2.0.1
 Migrated to VS2022 (.NET4.8)
 Add Help
 
-2022/08/30 v2.0.2
-Switched to .NET4.5.2

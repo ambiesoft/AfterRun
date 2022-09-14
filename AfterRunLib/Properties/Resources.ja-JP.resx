@@ -120,8 +120,14 @@
   <data name="HelpString" xml:space="preserve">
     <value>ex: afterrun -t waittime exefile</value>
   </data>
+  <data name="IntervalAlreadySet" xml:space="preserve">
+    <value>インターバルは既に指定されています</value>
+  </data>
   <data name="InvalidInterval" xml:space="preserve">
     <value>Invalid Interval</value>
+  </data>
+  <data name="InvalidProcessId" xml:space="preserve">
+    <value>無効なプロセスIDです {0}</value>
   </data>
   <data name="InvalidWindowStyle" xml:space="preserve">
     <value>Invalid Window Style</value>
@@ -138,11 +144,17 @@
   <data name="NoArgumentForInterval" xml:space="preserve">
     <value>No Arugment for interval value</value>
   </data>
+  <data name="NoArgumentForProcessId" xml:space="preserve">
+    <value>プロセスIDが指定されていません</value>
+  </data>
   <data name="NoArgumentForWindowStyle" xml:space="preserve">
     <value>No Argument for Window Style</value>
   </data>
   <data name="NoArguments" xml:space="preserve">
     <value>引数がありません</value>
+  </data>
+  <data name="PIDNotFound" xml:space="preserve">
+    <value>プロセスID {0} が見つかりません</value>
   </data>
   <data name="Shutdowning" xml:space="preserve">
     <value>シャットダウンします・・・</value>

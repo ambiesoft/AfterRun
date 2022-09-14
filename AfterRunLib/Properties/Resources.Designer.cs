@@ -77,11 +77,29 @@ namespace Ambiesoft.AfterRunLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duplicated interval.
+        /// </summary>
+        internal static string IntervalAlreadySet {
+            get {
+                return ResourceManager.GetString("IntervalAlreadySet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Interval.
         /// </summary>
         internal static string InvalidInterval {
             get {
                 return ResourceManager.GetString("InvalidInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Process Id: {0}.
+        /// </summary>
+        internal static string InvalidProcessId {
+            get {
+                return ResourceManager.GetString("InvalidProcessId", resourceCulture);
             }
         }
         
@@ -131,6 +149,15 @@ namespace Ambiesoft.AfterRunLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Argument for process id.
+        /// </summary>
+        internal static string NoArgumentForProcessId {
+            get {
+                return ResourceManager.GetString("NoArgumentForProcessId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Argument for Window Style.
         /// </summary>
         internal static string NoArgumentForWindowStyle {
@@ -145,6 +172,15 @@ namespace Ambiesoft.AfterRunLib.Properties {
         internal static string NoArguments {
             get {
                 return ResourceManager.GetString("NoArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process of id {0} is not found.
+        /// </summary>
+        internal static string PIDNotFound {
+            get {
+                return ResourceManager.GetString("PIDNotFound", resourceCulture);
             }
         }
         

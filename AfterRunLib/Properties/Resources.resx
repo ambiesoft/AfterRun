@@ -127,8 +127,14 @@ ex: afterrun -t SecToWait exefile
 -t : Seconds to wait, or 'm' to wait forever
 -ws : Set 'normal' for showing in normal window, 'minimized' for minimized window or 'maximized' for maximized window</value>
   </data>
+  <data name="IntervalAlreadySet" xml:space="preserve">
+    <value>Duplicated interval</value>
+  </data>
   <data name="InvalidInterval" xml:space="preserve">
     <value>Invalid Interval</value>
+  </data>
+  <data name="InvalidProcessId" xml:space="preserve">
+    <value>Invalid Process Id: {0}</value>
   </data>
   <data name="InvalidWindowStyle" xml:space="preserve">
     <value>Invalid Window Style</value>
@@ -145,11 +151,17 @@ ex: afterrun -t SecToWait exefile
   <data name="NoArgumentForInterval" xml:space="preserve">
     <value>No Arugment for interval value</value>
   </data>
+  <data name="NoArgumentForProcessId" xml:space="preserve">
+    <value>No Argument for process id</value>
+  </data>
   <data name="NoArgumentForWindowStyle" xml:space="preserve">
     <value>No Argument for Window Style</value>
   </data>
   <data name="NoArguments" xml:space="preserve">
     <value>No Arguments</value>
+  </data>
+  <data name="PIDNotFound" xml:space="preserve">
+    <value>Process of id {0} is not found</value>
   </data>
   <data name="Shutdowning" xml:space="preserve">
     <value>System will shutdown...</value>
