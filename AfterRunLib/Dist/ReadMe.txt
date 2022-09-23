@@ -1,4 +1,0 @@
--t interval : in sec
--c : center
--m : topmost
--ws windowstyle : "normal","minimized","maximized"

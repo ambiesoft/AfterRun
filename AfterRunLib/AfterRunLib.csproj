@@ -114,7 +114,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dist\ReadMe.txt" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +157,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)Dist\ReadMe.txt $(TargetDir)AfterRunLib.ReadMe.txt</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

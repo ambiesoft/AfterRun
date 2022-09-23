@@ -3,3 +3,6 @@ obj/
 *.suo
 *.user
 .vs/
+Release/
+Debug/
+
