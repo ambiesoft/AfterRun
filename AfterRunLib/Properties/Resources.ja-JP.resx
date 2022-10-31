@@ -159,6 +159,12 @@
   <data name="Shutdowning" xml:space="preserve">
     <value>シャットダウンします・・・</value>
   </data>
+  <data name="T_AND_P_CANNOTSPECIFIED_AT_THE_SAME_TIME" xml:space="preserve">
+    <value>'-t' と '-p' は同時に指定できません。</value>
+  </data>
+  <data name="T_OR_P_MUST_BE_SPECIFIED" xml:space="preserve">
+    <value>'-t' か '-p' のどちらかを指定しなければなりません。</value>
+  </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>未知のオプション</value>
   </data>

@@ -195,6 +195,24 @@ namespace Ambiesoft.AfterRunLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;-t&apos; and &apos;-p&apos; can not be specified at the same time..
+        /// </summary>
+        internal static string T_AND_P_CANNOTSPECIFIED_AT_THE_SAME_TIME {
+            get {
+                return ResourceManager.GetString("T_AND_P_CANNOTSPECIFIED_AT_THE_SAME_TIME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;-t&apos; or &apos;-p&apos; must be specified..
+        /// </summary>
+        internal static string T_OR_P_MUST_BE_SPECIFIED {
+            get {
+                return ResourceManager.GetString("T_OR_P_MUST_BE_SPECIFIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown Option.
         /// </summary>
         internal static string UnknownOption {

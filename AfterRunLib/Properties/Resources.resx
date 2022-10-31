@@ -167,6 +167,12 @@ ex: afterrun -t SecToWait exefile
   <data name="Shutdowning" xml:space="preserve">
     <value>System will shutdown...</value>
   </data>
+  <data name="T_AND_P_CANNOTSPECIFIED_AT_THE_SAME_TIME" xml:space="preserve">
+    <value>'-t' and '-p' can not be specified at the same time.</value>
+  </data>
+  <data name="T_OR_P_MUST_BE_SPECIFIED" xml:space="preserve">
+    <value>'-t' or '-p' must be specified.</value>
+  </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unknown Option</value>
   </data>

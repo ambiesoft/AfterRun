@@ -171,9 +171,11 @@ namespace Ambiesoft.AfterRunLib
         private void btnOK_Click(object sender, EventArgs e)
         {
             if (!EnableLaunch)
+            {
+                MessageBox.Show("Currently launching...");
                 return;
+            }
 
-            EnableLaunch = false;
             LaunchAndClose();
         }
 

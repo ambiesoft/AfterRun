@@ -25,6 +25,8 @@ namespace Ambiesoft.AfterRunLib
             if (!string.IsNullOrEmpty(message))
             {
                 sb.AppendLine(message);
+                for(int i = 0; i < 60; i++)
+                    sb.Append("-");
                 sb.AppendLine();
             }
             sb.AppendLine(Properties.Resources.HelpString);
@@ -198,7 +200,12 @@ namespace Ambiesoft.AfterRunLib
 
             if(interval != null && pidsToWait.Count!=0)
             {
-                messageWithHelp("-c and -p catnot");
+                messageWithHelp(Properties.Resources.T_AND_P_CANNOTSPECIFIED_AT_THE_SAME_TIME);
+                return;
+            }
+            if(interval == null && pidsToWait.Count==0)
+            {
+                messageWithHelp(Properties.Resources.T_OR_P_MUST_BE_SPECIFIED);
                 return;
             }
             form.Interval = interval;
