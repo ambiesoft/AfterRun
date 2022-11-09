@@ -32,6 +32,8 @@ namespace Ambiesoft.AfterRunLib
                 return;
             EnableLaunch = false;
 
+            this.WindowState = FormWindowState.Normal;
+
             if (!IsShutdown)
             {
                 foreach (string exe in exes_)

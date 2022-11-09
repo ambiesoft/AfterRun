@@ -1,4 +1,6 @@
+2022/11/09 v2.0.6
 Added minimize box on the title bar
+Restore the form if minimized when the app is launched
 Remove 'app.config'
 
 2022/10/31 v2.0.5
