@@ -73,7 +73,6 @@
             this.Controls.Add(this.btnOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FormMain";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.Shown += new System.EventHandler(this.FormMain_Shown);

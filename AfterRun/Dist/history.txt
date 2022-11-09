@@ -1,3 +1,4 @@
+Added minimize box on the title bar
 Remove 'app.config'
 
 2022/10/31 v2.0.5
