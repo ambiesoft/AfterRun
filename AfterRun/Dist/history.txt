@@ -1,3 +1,5 @@
+Remove 'app.config'
+
 2022/10/31 v2.0.5
 An error is generated when both A and B are specified.
 An error is generated when neither A nor B is specified.
