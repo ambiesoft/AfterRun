@@ -78,7 +78,7 @@ namespace Ambiesoft.AfterRunLib
 
             for (int i = 1; i < args.Length; ++i)
             {
-                if(false)
+                if (false)
                 { }
                 else if (args[i].StartsWith("-c"))
                 {
@@ -106,7 +106,7 @@ namespace Ambiesoft.AfterRunLib
                     }
                     ++i;
 
-                    if (!IsNumeric( args[i]))
+                    if (!IsNumeric(args[i]))
                     {
                         messageWithHelp(
                             string.Format(Properties.Resources.InvalidProcessId, args[i]));
@@ -114,7 +114,7 @@ namespace Ambiesoft.AfterRunLib
                     }
 
                     int pid = int.Parse(args[i]);
-                    if(!ProcessExists(pid))
+                    if (!ProcessExists(pid))
                     {
                         messageWithHelp(
                             string.Format(Properties.Resources.PIDNotFound, pid));
@@ -143,8 +143,45 @@ namespace Ambiesoft.AfterRunLib
                     }
                     else
                     {
-                        int intval;
-                        if (!Int32.TryParse(args[i], out intval))
+                        TimeSpan timeSpan = new TimeSpan(0, 0, 0);
+                        try
+                        {
+                            if (args[i].IndexOf(':') >= 0)
+                            {
+                                // In the format of 11:22:33 or 11:22
+                                string[] parts = args[i].Split(':');
+                                if (parts.Length == 2)
+                                {
+                                    // In the format of 11:22
+                                    timeSpan = new TimeSpan(0, int.Parse(parts[0]), int.Parse(parts[1]));
+                                }
+                                else if (parts.Length == 3)
+                                {
+                                    // In the format of 11:22:33
+                                    timeSpan = new TimeSpan(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2]));
+                                }
+
+                            }
+                            else if (args[i][args[i].Length - 1] == 'h')
+                            {
+                                int hour = int.Parse(args[i].Substring(0, args[i].Length - 1));
+                                timeSpan = new TimeSpan(hour, 0, 0);
+                            }
+                            else if (args[i][args[i].Length - 1] == 'm')
+                            {
+                                int minutes = int.Parse(args[i].Substring(0, args[i].Length - 1));
+                                timeSpan = new TimeSpan(0, minutes, 0);
+                            }
+                            else
+                            {
+                                timeSpan = new TimeSpan(0, 0, int.Parse(args[i]));
+                            }
+                            if (timeSpan.TotalSeconds == 0)
+                            {
+                                throw new Exception();
+                            }
+                        }
+                        catch (Exception)
                         {
                             string message = Ambiesoft.AfterRunLib.Properties.Resources.InvalidInterval;
                             message += " : ";
@@ -152,7 +189,7 @@ namespace Ambiesoft.AfterRunLib
                             messageWithHelp(message);
                             return;
                         }
-                        interval= intval;
+                        interval = (int)timeSpan.TotalSeconds;
                     }
                 }
                 else if (args[i].StartsWith("-ws"))
