@@ -53,10 +53,17 @@ namespace Ambiesoft.AfterRunLib
                 foreach (var exearg in exeargss_)
                 {
                     ProcessStartInfo psi = new ProcessStartInfo();
-                    psi.FileName = exearg.Exe;
-                    psi.Arguments = exearg.Arg;
+                    if (!string.IsNullOrWhiteSpace(exearg.Exe))
+                    {
+                        psi.FileName = exearg.Exe;
+                        psi.Arguments = exearg.Arg;
+                    }
+                    else
+                    {
+                        psi.FileName = exearg.Arg;
+                    }
                     psi.WindowStyle = LaunchingProcessWindowStyle;
-
+                    psi.UseShellExecute = true;
                     try
                     {
                         System.Diagnostics.Process.Start(psi);
