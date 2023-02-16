@@ -1,0 +1,43 @@
+{
+	"name": "AfterRun",
+	"solution": "AfterRun.sln",
+	"targetproject": "zzzDist",
+	"configuration": "Release",
+    "targets": [
+            {
+            	"setoutdirforbuild": true,
+                "outdir" : "build/AfterRun/",
+                "platform":"Any CPU"
+            }
+    ],
+    "archivedir": "C:/Linkout/",
+    "remotedir": "https://ambiesoft.com/ffdav/uploads/AfterRun/",
+    "remotesha1" : "https://ambiesoft.com/ffdav/uploads/getSha1.php?file=AfterRun/{}",
+    
+    "TotalFileCount": "exact",
+    
+    "ShouldNotBeFiles": [
+    	"AfterRun.ini"
+    ],
+    
+    "ShouldBeFiles": [
+"AfterRun.exe",
+        "AfterRun.pdb",
+        "Ambiesoft.AfterRunLib.dll",
+        "Ambiesoft.AfterRunLib.pdb",
+        "Ambiesoft.AmbLib.dll",
+        "Ambiesoft.AmbLib.pdb",
+        "Ambiesoft.AmbLibcpp.dll",
+        "Ambiesoft.AmbLibcpp.pdb",
+        "Ambiesoft.Profile.dll",
+        "Ambiesoft.Profile.pdb",
+        "history.txt",
+        "README.md",
+        "ja-JP\\Ambiesoft.AfterRunLib.resources.dll"
+	],
+    
+    "ShouldBeOneOfThem": [],
+    
+    "obtainverfrom": "History.txt",
+    "obtainverregex": "\\d+\\.\\d+\\.\\d+"
+}
