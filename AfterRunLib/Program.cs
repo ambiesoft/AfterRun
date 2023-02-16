@@ -70,19 +70,21 @@ namespace Ambiesoft.AfterRunLib
             int? interval = null;
             List<int> pidsToWait = new List<int>();
 
-            FormMain form = new FormMain();
-
+            List<ExeArg> exeArgs = new List<ExeArg>();
+            FormStartPosition fsp = default(FormStartPosition);
+            bool topMost = false;
+            System.Diagnostics.ProcessWindowStyle pws = default(System.Diagnostics.ProcessWindowStyle);
             for (int i = 1; i < args.Length; ++i)
             {
                 if (false)
                 { }
                 else if (args[i].StartsWith("-c"))
                 {
-                    form.StartPosition = FormStartPosition.CenterScreen;
+                    fsp = FormStartPosition.CenterScreen;
                 }
                 else if (args[i].StartsWith("-m"))
                 {
-                    form.TopMost = true;
+                    topMost = true;
                 }
                 else if (args[i].ToLower().StartsWith("-h") ||
                     args[i].ToLower().StartsWith("-help") ||
@@ -198,15 +200,15 @@ namespace Ambiesoft.AfterRunLib
                     ++i;
                     if (args[i] == "normal")
                     {
-                        form.LaunchingProcessWindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                        pws = System.Diagnostics.ProcessWindowStyle.Normal;
                     }
                     else if (args[i] == "minimized")
                     {
-                        form.LaunchingProcessWindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+                        pws = System.Diagnostics.ProcessWindowStyle.Minimized;
                     }
                     else if (args[i] == "maximized")
                     {
-                        form.LaunchingProcessWindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized;
+                        pws = System.Diagnostics.ProcessWindowStyle.Maximized;
                     }
                     else
                     {
@@ -263,7 +265,7 @@ namespace Ambiesoft.AfterRunLib
                     {
                         if (!(args[i].StartsWith("-arg") || args[i].StartsWith("/arg")))
                         {
-                            form.exeargss_.Add(new ExeArg(exevalue, argvalue));
+                            exeArgs.Add(new ExeArg(exevalue, argvalue));
                             --i;
                             continue;
                         }
@@ -281,7 +283,7 @@ namespace Ambiesoft.AfterRunLib
 
                         argvalue = WebUtility.UrlDecode(args[i]);
                     }
-                    form.exeargss_.Add(new ExeArg(exevalue, argvalue));
+                    exeArgs.Add(new ExeArg(exevalue, argvalue));
                 }
             }
 
@@ -295,8 +297,16 @@ namespace Ambiesoft.AfterRunLib
                 messageWithHelp(Properties.Resources.T_OR_P_MUST_BE_SPECIFIED);
                 return;
             }
-            form.Interval = interval;
-            form.pidsToWait = pidsToWait;
+            FormMain form = new FormMain(
+                new UserInput(
+                    false,
+                    exeArgs,
+                    interval,
+                    pidsToWait,
+                    pws));
+            form.StartPosition = fsp;
+            form.TopMost = topMost;
+
             Application.Run(form);
         }
     }

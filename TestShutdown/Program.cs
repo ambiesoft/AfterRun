@@ -16,8 +16,13 @@ namespace TestShutdown
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Ambiesoft.AfterRunLib.FormMain form = new Ambiesoft.AfterRunLib.FormMain();
-            form.IsShutdown = true;
+            Ambiesoft.AfterRunLib.FormMain form = new Ambiesoft.AfterRunLib.FormMain(
+                new Ambiesoft.AfterRunLib.UserInput(
+                    false,
+                    null,
+                    null,
+                    null)
+                );
             Application.Run(form);
         }
     }

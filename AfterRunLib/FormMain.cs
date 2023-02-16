@@ -12,31 +12,11 @@ namespace Ambiesoft.AfterRunLib
 {
     public partial class FormMain : Form
     {
-        internal List<ExeArg> exeargss_ = new List<ExeArg>();
-        private List<string> exes_ = null;
-        internal List<string> Exes
-        {
-            get
-            {
-                if(exes_!= null)
-                    return exes_;
-                exes_ = new List<string>();
-                foreach(ExeArg ea in exeargss_) {
-                    exes_.Add(ea.Exe);
-                }
-                return exes_;
-            }
-        }
-        public int? Interval = null;
-        public List<int> pidsToWait = null;
+        readonly UserInput userInput = null;
 
-        // public FormStartPosition InitStartPosition = default(FormStartPosition);
-        // public bool InitTopMost = false;
-        public System.Diagnostics.ProcessWindowStyle LaunchingProcessWindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-        public bool IsShutdown = false;
-
-        public FormMain()
+        public FormMain(UserInput ui)
         {
+            userInput = ui;
             InitializeComponent();
         }
 
@@ -48,9 +28,9 @@ namespace Ambiesoft.AfterRunLib
 
             this.WindowState = FormWindowState.Normal;
 
-            if (!IsShutdown)
+            if (!userInput.IsShutdown)
             {
-                foreach (var exearg in exeargss_)
+                foreach (var exearg in userInput.ExeArgs)
                 {
                     ProcessStartInfo psi = new ProcessStartInfo();
                     if (!string.IsNullOrWhiteSpace(exearg.Exe))
@@ -62,7 +42,7 @@ namespace Ambiesoft.AfterRunLib
                     {
                         psi.FileName = exearg.Arg;
                     }
-                    psi.WindowStyle = LaunchingProcessWindowStyle;
+                    psi.WindowStyle = userInput.LaunchingProcessWindowStyle;
                     psi.UseShellExecute = true;
                     try
                     {
@@ -102,10 +82,10 @@ namespace Ambiesoft.AfterRunLib
         }
         void timerMain_TickWaitPidsToTerminate()
         {
-            var waitsPid = new List<int>(pidsToWait);
+            var waitsPid = new List<int>(userInput.PidsToWait);
             foreach (Process p in Process.GetProcesses())
             {
-                if (pidsToWait.Contains(p.Id))
+                if (userInput.PidsToWait.Contains(p.Id))
                 {
                     // process still exists
                     return;
@@ -130,22 +110,22 @@ namespace Ambiesoft.AfterRunLib
             }
 
             btnOK.Text = "OK" + " (" + n + ")";
-            this.Text = n.ToString() + " | " + string.Join(" ", Exes) + " | " + Application.ProductName;
+            this.Text = n.ToString() + " | " + string.Join(" ", userInput.Exes) + " | " + Application.ProductName;
             timerMain.Tag = n;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            if (!IsShutdown && exeargss_.Count == 0)
+            if (!userInput.IsShutdown && userInput.ExeArgs.Count == 0)
             {
                 MessageBox.Show(Properties.Resources.NoArguments);
                 Close();
                 return;
             }
-            if (!IsShutdown)
+            if (!userInput.IsShutdown)
             {
                 String s = String.Format(Properties.Resources.Launching,
-                    string.Join(" ", Exes));
+                    string.Join(" ", userInput.Exes));
                 labelTitle.Text = s;
             }
             else
@@ -153,23 +133,23 @@ namespace Ambiesoft.AfterRunLib
                 labelTitle.Text = Properties.Resources.Shutdowning;
             }
 
-            if (Interval != null)
+            if (userInput.Interval != null)
             {
                 Text = "CountDown" + " " + Text;
-                if (Interval == -1)
+                if (userInput.Interval == -1)
                 {
                     timerMain.Enabled = false;
                 }
                 else
                 {
-                    timerMain.Tag = Interval;
+                    timerMain.Tag = userInput.Interval;
                 }
             }
-            else if (pidsToWait != null)
+            else if (userInput.PidsToWait != null)
             {
                 Text = "Wait Process" + " " + Text;
                 timerMain.Interval = 5000;
-                timerMain.Tag = pidsToWait;
+                timerMain.Tag = userInput.PidsToWait;
             }
             else
             {

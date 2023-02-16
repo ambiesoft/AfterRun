@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ambiesoft.AfterRunLib
 {
-    internal class ExeArg
+    public class ExeArg
     {
         string exe_;
         string arg_;
