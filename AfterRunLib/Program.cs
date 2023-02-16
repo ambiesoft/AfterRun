@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Linq;
+using System.Net;
+using System.Text;
 
 namespace Ambiesoft.AfterRunLib
 {
@@ -12,12 +14,6 @@ namespace Ambiesoft.AfterRunLib
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
-
-
-
-
-
-
 
         static void messageWithHelp(string message, MessageBoxIcon icon)
         {
@@ -221,21 +217,75 @@ namespace Ambiesoft.AfterRunLib
                         return;
                     }
                 }
-                else if (args[i].StartsWith("-") || args[i].StartsWith("/"))
+                else if( (args[i].StartsWith("-")||args[i].StartsWith("/")) && 
+                    !(args[i].StartsWith("-exe") || args[i].StartsWith("/exe")) &&
+                    !(args[i].StartsWith("-arg") || args[i].StartsWith("/arg")))
                 {
-                    string message = Properties.Resources.UnknownOption;
-                    message += " : ";
-                    message += args[i];
-                    messageWithHelp(message);
+                    StringBuilder sb= new StringBuilder();
+                    sb.Append(Properties.Resources.UnknownOption);
+                    sb.Append(" : ");
+                    sb.Append(args[i]);
+                    sb.AppendLine();
+                    sb.AppendLine();
+                    sb.Append(Properties.Resources.UseUrlEncodeToPassArg);
+                    messageWithHelp(sb.ToString());
                     return;
                 }
-                else
+                //else
+                //{
+                //    string message = Properties.Resources.UnknownOption;
+                //    message += " : ";
+                //    message += args[i];
+                //    messageWithHelp(message);
+                //    return;
+                //}
+            }  // for (int i = 1; i < args.Length; ++i)
+
+            // get all -exe and -arg
+            for (int i = 1; i < args.Length; ++i)
+            {
+                if (args[i].StartsWith("-exe") || args[i].StartsWith("/exe"))
                 {
-                    form.exes_.Add(args[i]);
+                    ++i;
+                    if (args.Length <= i)
+                    {
+                        string message = Properties.Resources.NoExecutableSpecified;
+                        message += " : ";
+                        message += args[i];
+                        messageWithHelp(message);
+                        return;
+                    }
+
+                    string exevalue = args[i];
+                    string argvalue = string.Empty;
+                    ++i;
+                    if (!(args.Length <= i))
+                    {
+                        if (!(args[i].StartsWith("-arg") || args[i].StartsWith("/arg")))
+                        {
+                            form.exeargss_.Add(new ExeArg(exevalue, argvalue));
+                            --i;
+                            continue;
+                        }
+
+                        // now -arg is confirmed
+                        ++i;
+                        if (args.Length <= i)
+                        {
+                            string message = Properties.Resources.NoArgumentSpecified;
+                            message += " : ";
+                            message += args[i];
+                            messageWithHelp(message);
+                            return;
+                        }
+
+                        argvalue = WebUtility.UrlDecode(args[i]);
+                    }
+                    form.exeargss_.Add(new ExeArg(exevalue, argvalue));
                 }
             }
 
-            if(interval != null && pidsToWait.Count!=0)
+            if (interval != null && pidsToWait.Count!=0)
             {
                 messageWithHelp(Properties.Resources.T_AND_P_CANNOTSPECIFIED_AT_THE_SAME_TIME);
                 return;

@@ -63,13 +63,14 @@ namespace Ambiesoft.AfterRunLib.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Afterrun : Run executable after specified time
         ///
-        ///ex: afterrun -t SecToWait exefile
+        ///ex: afterrun -t SecToWait -exe EXE [-arg ARG]
         ///
         ///-c : Position window at Center
         ///-m : Set window Topmost
         ///-p : Wait pid to finish
-        ///-t : Seconds to wait, or &apos;m&apos; to wait forever
-        ///-ws : Set &apos;normal&apos; for showing in normal window, &apos;minimized&apos; for minimized window or &apos;maximized&apos; for maximized window.
+        ///-t : Seconds to wait, or &apos;m&apos; to wait forever. Specify &apos;5m&apos; for five minutes, &apos;2h&apos; for two hours, &apos;1:30:30&apos; for one hour and 30 minutes and 30 seconds or &apos;4:30&apos; for 4 minutes and 30 seconds
+        ///-ws : Set &apos;normal&apos; for showing in normal window, &apos;minimized&apos; for minimized window or &apos;maximized&apos; for maximized window
+        ///-exe EXE : Specify a e [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HelpString {
             get {
@@ -177,6 +178,24 @@ namespace Ambiesoft.AfterRunLib.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No arguments specifed for &apos;-arg&apos;.
+        /// </summary>
+        internal static string NoArgumentSpecified {
+            get {
+                return ResourceManager.GetString("NoArgumentSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No executables specified for &apos;-exe&apos;.
+        /// </summary>
+        internal static string NoExecutableSpecified {
+            get {
+                return ResourceManager.GetString("NoExecutableSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process of id {0} is not found.
         /// </summary>
         internal static string PIDNotFound {
@@ -218,6 +237,15 @@ namespace Ambiesoft.AfterRunLib.Properties {
         internal static string UnknownOption {
             get {
                 return ResourceManager.GetString("UnknownOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Url-Encoding to pass the argument.
+        /// </summary>
+        internal static string UseUrlEncodeToPassArg {
+            get {
+                return ResourceManager.GetString("UseUrlEncodeToPassArg", resourceCulture);
             }
         }
     }

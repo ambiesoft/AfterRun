@@ -12,7 +12,21 @@ namespace Ambiesoft.AfterRunLib
 {
     public partial class FormMain : Form
     {
-        public List<string> exes_ = new List<string>();
+        internal List<ExeArg> exeargss_ = new List<ExeArg>();
+        private List<string> exes_ = null;
+        internal List<string> Exes
+        {
+            get
+            {
+                if(exes_!= null)
+                    return exes_;
+                exes_ = new List<string>();
+                foreach(ExeArg ea in exeargss_) {
+                    exes_.Add(ea.Exe);
+                }
+                return exes_;
+            }
+        }
         public int? Interval = null;
         public List<int> pidsToWait = null;
 
@@ -36,10 +50,11 @@ namespace Ambiesoft.AfterRunLib
 
             if (!IsShutdown)
             {
-                foreach (string exe in exes_)
+                foreach (var exearg in exeargss_)
                 {
                     ProcessStartInfo psi = new ProcessStartInfo();
-                    psi.FileName = exe;
+                    psi.FileName = exearg.Exe;
+                    psi.Arguments = exearg.Arg;
                     psi.WindowStyle = LaunchingProcessWindowStyle;
 
                     try
@@ -108,13 +123,13 @@ namespace Ambiesoft.AfterRunLib
             }
 
             btnOK.Text = "OK" + " (" + n + ")";
-            this.Text = n.ToString() + " | " + string.Join(" ", exes_) + " | " + Application.ProductName;
+            this.Text = n.ToString() + " | " + string.Join(" ", Exes) + " | " + Application.ProductName;
             timerMain.Tag = n;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            if (!IsShutdown && exes_.Count == 0)
+            if (!IsShutdown && exeargss_.Count == 0)
             {
                 MessageBox.Show(Properties.Resources.NoArguments);
                 Close();
@@ -123,7 +138,7 @@ namespace Ambiesoft.AfterRunLib
             if (!IsShutdown)
             {
                 String s = String.Format(Properties.Resources.Launching,
-                    string.Join(" ", exes_));
+                    string.Join(" ", Exes));
                 labelTitle.Text = s;
             }
             else

@@ -118,7 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HelpString" xml:space="preserve">
-    <value>ex: afterrun -t waittime exefile</value>
+    <value>Afterrun : 指定時間後にプログラムを実行します
+
+例: afterrun -t SecToWait -exe EXE [-arg ARG]
+
+-c : ウインドウをセンタリングします
+-m : ウインドウを最上位に表示します
+-p : 終了を待つpid
+-t : 街秒数を指定します。mを指定すると無限に待ちます。'2m'で２分、'1h'で１時間、'1:30:30'で１時間３０分３０秒、'2:30'で２分３０秒待ちます
+-ws : 'normal' で通常のウインドウを表示、'minimized' で最小化されたウインドウを表示、 'maximized' で最大化されたウインドウを表示します
+-exe EXE : 実行ファイルを指定します
+-arg ARG : 直前の実行ファイルのコマンドライン引数を指定します</value>
   </data>
   <data name="IntervalAlreadySet" xml:space="preserve">
     <value>インターバルは既に指定されています</value>
@@ -153,6 +163,12 @@
   <data name="NoArguments" xml:space="preserve">
     <value>引数がありません</value>
   </data>
+  <data name="NoArgumentSpecified" xml:space="preserve">
+    <value>-arg引数が指定されていません</value>
+  </data>
+  <data name="NoExecutableSpecified" xml:space="preserve">
+    <value>-exe引数が指定されていません</value>
+  </data>
   <data name="PIDNotFound" xml:space="preserve">
     <value>プロセスID {0} が見つかりません</value>
   </data>
@@ -167,5 +183,8 @@
   </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>未知のオプション</value>
+  </data>
+  <data name="UseUrlEncodeToPassArg" xml:space="preserve">
+    <value>-arg引数を渡すにはUrlエンコードを使ってください</value>
   </data>
 </root>

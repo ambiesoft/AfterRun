@@ -1,3 +1,8 @@
+2023/02/16 v2.0.7
+To specifiy an executable, '-exe' is needed.
+Able to specify '-arg' for the previous '-exe'
+Able to specify a duration in various formats
+
 2022/11/09 v2.0.6
 Added minimize box on the title bar
 Restore the form if minimized when the app is launched
