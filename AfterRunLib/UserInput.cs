@@ -41,6 +41,10 @@ namespace Ambiesoft.AfterRunLib
             {
                 return _interval;
             }
+            set
+            {
+                _interval = value;
+            }
         }
         List<int> _pidsToWait = null;
         public List<int> PidsToWait

@@ -11,7 +11,15 @@ namespace Ambiesoft.AfterRunLib
         string exe_;
         string arg_;
         public ExeArg(string e, string a) { exe_ = e; arg_ = a; }
-        public string Exe { get { return exe_; } }
-        public string Arg { get { return arg_; } }
+        public string Exe
+        {
+            get { return exe_; }
+            set { exe_ = value; }
+        }
+        public string Arg
+        {
+            get { return arg_; }
+            set { arg_ = value; }
+        }
     }
 }

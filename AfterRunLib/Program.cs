@@ -54,6 +54,48 @@ namespace Ambiesoft.AfterRunLib
             return false;
         }
 
+        internal static int parseDuration(string arg)
+        {
+            TimeSpan timeSpan = new TimeSpan(0, 0, 0);
+            
+            {
+                if (arg.IndexOf(':') >= 0)
+                {
+                    // In the format of 11:22:33 or 11:22
+                    string[] parts = arg.Split(':');
+                    if (parts.Length == 2)
+                    {
+                        // In the format of 11:22
+                        timeSpan = new TimeSpan(0, int.Parse(parts[0]), int.Parse(parts[1]));
+                    }
+                    else if (parts.Length == 3)
+                    {
+                        // In the format of 11:22:33
+                        timeSpan = new TimeSpan(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2]));
+                    }
+
+                }
+                else if (arg[arg.Length - 1] == 'h')
+                {
+                    int hour = int.Parse(arg.Substring(0, arg.Length - 1));
+                    timeSpan = new TimeSpan(hour, 0, 0);
+                }
+                else if (arg[arg.Length - 1] == 'm')
+                {
+                    int minutes = int.Parse(arg.Substring(0, arg.Length - 1));
+                    timeSpan = new TimeSpan(0, minutes, 0);
+                }
+                else
+                {
+                    timeSpan = new TimeSpan(0, 0, int.Parse(arg));
+                }
+                if (timeSpan.TotalSeconds == 0)
+                {
+                    throw new Exception();
+                }
+            }
+            return (int)timeSpan.TotalSeconds;
+        }
         [STAThread]
         public static void Main(String[] args)
         {
@@ -61,11 +103,8 @@ namespace Ambiesoft.AfterRunLib
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (args.Length < 2)
-            {
-                messageWithHelp(Properties.Resources.NoArguments);
-                return;
-            }
+            bool? needsDialog = null;
+            string errorMessage = string.Empty;
 
             int? interval = null;
             List<int> pidsToWait = new List<int>();
@@ -74,236 +113,218 @@ namespace Ambiesoft.AfterRunLib
             FormStartPosition fsp = default(FormStartPosition);
             bool topMost = false;
             System.Diagnostics.ProcessWindowStyle pws = default(System.Diagnostics.ProcessWindowStyle);
-            for (int i = 1; i < args.Length; ++i)
+
+            do
             {
-                if (false)
-                { }
-                else if (args[i].StartsWith("-c"))
+                if (args.Length < 2)
                 {
-                    fsp = FormStartPosition.CenterScreen;
+                    needsDialog = true;
+                    errorMessage = Properties.Resources.NoArguments;
+                    break;
                 }
-                else if (args[i].StartsWith("-m"))
-                {
-                    topMost = true;
-                }
-                else if (args[i].ToLower().StartsWith("-h") ||
-                    args[i].ToLower().StartsWith("-help") ||
-                    args[i].ToLower().StartsWith("--help") ||
-                    args[i].ToLower().StartsWith("/h") ||
-                    args[i].ToLower().StartsWith("/?"))
-                {
-                    messageWithHelp("", MessageBoxIcon.Information);
-                    return;
-                }
-                else if (args[i].StartsWith("-p"))
-                {
-                    if ((i - 1) == args.Length)
-                    {
-                        messageWithHelp(Properties.Resources.NoArgumentForProcessId);
-                        return;
-                    }
-                    ++i;
 
-                    if (!IsNumeric(args[i]))
-                    {
-                        messageWithHelp(
-                            string.Format(Properties.Resources.InvalidProcessId, args[i]));
-                        return;
-                    }
-
-                    int pid = int.Parse(args[i]);
-                    if (!ProcessExists(pid))
-                    {
-                        messageWithHelp(
-                            string.Format(Properties.Resources.PIDNotFound, pid));
-                        return;
-                    }
-                    pidsToWait.Add(pid);
-                }
-                else if (args[i].StartsWith("-t"))
+                for (int i = 1; i < args.Length; ++i)
                 {
-                    if ((i - 1) == args.Length)
+                    if (false)
+                    { }
+                    else if (args[i].StartsWith("-c"))
                     {
-                        messageWithHelp(Properties.Resources.NoArgumentForInterval);
+                        fsp = FormStartPosition.CenterScreen;
+                    }
+                    else if (args[i].StartsWith("-m"))
+                    {
+                        topMost = true;
+                    }
+                    else if (args[i].ToLower().StartsWith("-h") ||
+                        args[i].ToLower().StartsWith("-help") ||
+                        args[i].ToLower().StartsWith("--help") ||
+                        args[i].ToLower().StartsWith("/h") ||
+                        args[i].ToLower().StartsWith("/?"))
+                    {
+                        messageWithHelp("", MessageBoxIcon.Information);
                         return;
                     }
-                    ++i;
-
-                    if (interval != null)
+                    else if (args[i].StartsWith("-p"))
                     {
-                        messageWithHelp(Properties.Resources.IntervalAlreadySet);
-                        return;
-                    }
-
-                    if (args[i] == "m")
-                    {
-                        interval = -1;
-                    }
-                    else
-                    {
-                        TimeSpan timeSpan = new TimeSpan(0, 0, 0);
-                        try
+                        if ((i - 1) == args.Length)
                         {
-                            if (args[i].IndexOf(':') >= 0)
-                            {
-                                // In the format of 11:22:33 or 11:22
-                                string[] parts = args[i].Split(':');
-                                if (parts.Length == 2)
-                                {
-                                    // In the format of 11:22
-                                    timeSpan = new TimeSpan(0, int.Parse(parts[0]), int.Parse(parts[1]));
-                                }
-                                else if (parts.Length == 3)
-                                {
-                                    // In the format of 11:22:33
-                                    timeSpan = new TimeSpan(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2]));
-                                }
+                            messageWithHelp(Properties.Resources.NoArgumentForProcessId);
+                            return;
+                        }
+                        ++i;
 
-                            }
-                            else if (args[i][args[i].Length - 1] == 'h')
+                        if (!IsNumeric(args[i]))
+                        {
+                            messageWithHelp(
+                                string.Format(Properties.Resources.InvalidProcessId, args[i]));
+                            return;
+                        }
+
+                        int pid = int.Parse(args[i]);
+                        if (!ProcessExists(pid))
+                        {
+                            messageWithHelp(
+                                string.Format(Properties.Resources.PIDNotFound, pid));
+                            return;
+                        }
+                        pidsToWait.Add(pid);
+                    }
+                    else if (args[i].StartsWith("-t"))
+                    {
+                        if ((i - 1) == args.Length)
+                        {
+                            messageWithHelp(Properties.Resources.NoArgumentForInterval);
+                            return;
+                        }
+                        ++i;
+
+                        if (interval != null)
+                        {
+                            messageWithHelp(Properties.Resources.IntervalAlreadySet);
+                            return;
+                        }
+
+                        if (args[i] == "m")
+                        {
+                            interval = -1;
+                        }
+                        else
+                        {
+
+                            try
                             {
-                                int hour = int.Parse(args[i].Substring(0, args[i].Length - 1));
-                                timeSpan = new TimeSpan(hour, 0, 0);
+                                interval = parseDuration(args[i]);
                             }
-                            else if (args[i][args[i].Length - 1] == 'm')
+                            catch (Exception)
                             {
-                                int minutes = int.Parse(args[i].Substring(0, args[i].Length - 1));
-                                timeSpan = new TimeSpan(0, minutes, 0);
-                            }
-                            else
-                            {
-                                timeSpan = new TimeSpan(0, 0, int.Parse(args[i]));
-                            }
-                            if (timeSpan.TotalSeconds == 0)
-                            {
-                                throw new Exception();
+                                string message = Ambiesoft.AfterRunLib.Properties.Resources.InvalidInterval;
+                                message += " : ";
+                                message += args[i];
+                                messageWithHelp(message);
+                                return;
                             }
                         }
-                        catch (Exception)
+                    }
+                    else if (args[i].StartsWith("-ws"))
+                    {
+                        if ((i - 1) == args.Length)
                         {
-                            string message = Ambiesoft.AfterRunLib.Properties.Resources.InvalidInterval;
+                            messageWithHelp(Properties.Resources.NoArgumentForWindowStyle);
+                            return;
+                        }
+                        ++i;
+                        if (args[i] == "normal")
+                        {
+                            pws = System.Diagnostics.ProcessWindowStyle.Normal;
+                        }
+                        else if (args[i] == "minimized")
+                        {
+                            pws = System.Diagnostics.ProcessWindowStyle.Minimized;
+                        }
+                        else if (args[i] == "maximized")
+                        {
+                            pws = System.Diagnostics.ProcessWindowStyle.Maximized;
+                        }
+                        else
+                        {
+                            string message = Properties.Resources.InvalidWindowStyle;
                             message += " : ";
                             message += args[i];
                             messageWithHelp(message);
                             return;
                         }
-                        interval = (int)timeSpan.TotalSeconds;
                     }
-                }
-                else if (args[i].StartsWith("-ws"))
-                {
-                    if ((i - 1) == args.Length)
+                    else if ((args[i].StartsWith("-") || args[i].StartsWith("/")) &&
+                        !(args[i].StartsWith("-exe") || args[i].StartsWith("/exe")) &&
+                        !(args[i].StartsWith("-arg") || args[i].StartsWith("/arg")))
                     {
-                        messageWithHelp(Properties.Resources.NoArgumentForWindowStyle);
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append(Properties.Resources.UnknownOption);
+                        sb.Append(" : ");
+                        sb.Append(args[i]);
+                        sb.AppendLine();
+                        sb.AppendLine();
+                        sb.Append(Properties.Resources.UseUrlEncodeToPassArg);
+                        messageWithHelp(sb.ToString());
                         return;
                     }
-                    ++i;
-                    if (args[i] == "normal")
-                    {
-                        pws = System.Diagnostics.ProcessWindowStyle.Normal;
-                    }
-                    else if (args[i] == "minimized")
-                    {
-                        pws = System.Diagnostics.ProcessWindowStyle.Minimized;
-                    }
-                    else if (args[i] == "maximized")
-                    {
-                        pws = System.Diagnostics.ProcessWindowStyle.Maximized;
-                    }
-                    else
-                    {
-                        string message = Properties.Resources.InvalidWindowStyle;
-                        message += " : ";
-                        message += args[i];
-                        messageWithHelp(message);
-                        return;
-                    }
-                }
-                else if( (args[i].StartsWith("-")||args[i].StartsWith("/")) && 
-                    !(args[i].StartsWith("-exe") || args[i].StartsWith("/exe")) &&
-                    !(args[i].StartsWith("-arg") || args[i].StartsWith("/arg")))
+                }  // for (int i = 1; i < args.Length; ++i)
+
+                // get all -exe and -arg
+                for (int i = 1; i < args.Length; ++i)
                 {
-                    StringBuilder sb= new StringBuilder();
-                    sb.Append(Properties.Resources.UnknownOption);
-                    sb.Append(" : ");
-                    sb.Append(args[i]);
-                    sb.AppendLine();
-                    sb.AppendLine();
-                    sb.Append(Properties.Resources.UseUrlEncodeToPassArg);
-                    messageWithHelp(sb.ToString());
-                    return;
-                }
-                //else
-                //{
-                //    string message = Properties.Resources.UnknownOption;
-                //    message += " : ";
-                //    message += args[i];
-                //    messageWithHelp(message);
-                //    return;
-                //}
-            }  // for (int i = 1; i < args.Length; ++i)
-
-            // get all -exe and -arg
-            for (int i = 1; i < args.Length; ++i)
-            {
-                if (args[i].StartsWith("-exe") || args[i].StartsWith("/exe"))
-                {
-                    ++i;
-                    if (args.Length <= i)
+                    if (args[i].StartsWith("-exe") || args[i].StartsWith("/exe"))
                     {
-                        string message = Properties.Resources.NoExecutableSpecified;
-                        message += " : ";
-                        message += args[i];
-                        messageWithHelp(message);
-                        return;
-                    }
-
-                    string exevalue = args[i];
-                    string argvalue = string.Empty;
-                    ++i;
-                    if (!(args.Length <= i))
-                    {
-                        if (!(args[i].StartsWith("-arg") || args[i].StartsWith("/arg")))
-                        {
-                            exeArgs.Add(new ExeArg(exevalue, argvalue));
-                            --i;
-                            continue;
-                        }
-
-                        // now -arg is confirmed
                         ++i;
                         if (args.Length <= i)
                         {
-                            string message = Properties.Resources.NoArgumentSpecified;
+                            string message = Properties.Resources.NoExecutableSpecified;
                             message += " : ";
                             message += args[i];
                             messageWithHelp(message);
                             return;
                         }
 
-                        argvalue = WebUtility.UrlDecode(args[i]);
-                    }
-                    exeArgs.Add(new ExeArg(exevalue, argvalue));
-                }
-            }
+                        string exevalue = args[i];
+                        string argvalue = string.Empty;
+                        ++i;
+                        if (!(args.Length <= i))
+                        {
+                            if (!(args[i].StartsWith("-arg") || args[i].StartsWith("/arg")))
+                            {
+                                exeArgs.Add(new ExeArg(exevalue, argvalue));
+                                --i;
+                                continue;
+                            }
 
-            if (interval != null && pidsToWait.Count!=0)
-            {
-                messageWithHelp(Properties.Resources.T_AND_P_CANNOTSPECIFIED_AT_THE_SAME_TIME);
-                return;
-            }
-            if(interval == null && pidsToWait.Count==0)
-            {
-                messageWithHelp(Properties.Resources.T_OR_P_MUST_BE_SPECIFIED);
-                return;
-            }
-            FormMain form = new FormMain(
-                new UserInput(
+                            // now -arg is confirmed
+                            ++i;
+                            if (args.Length <= i)
+                            {
+                                string message = Properties.Resources.NoArgumentSpecified;
+                                message += " : ";
+                                message += args[i];
+                                messageWithHelp(message);
+                                return;
+                            }
+
+                            argvalue = WebUtility.UrlDecode(args[i]);
+                        }
+                        exeArgs.Add(new ExeArg(exevalue, argvalue));
+                    }
+                }
+
+                if (interval != null && pidsToWait.Count != 0)
+                {
+                    messageWithHelp(Properties.Resources.T_AND_P_CANNOTSPECIFIED_AT_THE_SAME_TIME);
+                    return;
+                }
+                if (interval == null && pidsToWait.Count == 0)
+                {
+                    needsDialog = true;
+                    errorMessage = Properties.Resources.T_OR_P_MUST_BE_SPECIFIED;
+                    break;
+                }
+                needsDialog = false;
+            } while (false);
+
+            var userInput = new UserInput(
                     false,
                     exeArgs,
                     interval,
                     pidsToWait,
-                    pws));
+                    pws);
+
+            if (needsDialog == true)
+            {
+                using (UserInputDialog uid = new UserInputDialog(userInput))
+                {
+                    if (DialogResult.OK != uid.ShowDialog())
+                        return;
+                }
+            }
+            Debug.Assert(needsDialog != null);
+            FormMain form = new FormMain(userInput);
             form.StartPosition = fsp;
             form.TopMost = topMost;
 
