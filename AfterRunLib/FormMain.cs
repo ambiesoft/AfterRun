@@ -109,8 +109,10 @@ namespace Ambiesoft.AfterRunLib
                 return;
             }
 
-            btnOK.Text = "OK" + " (" + n + ")";
-            this.Text = n.ToString() + " | " + string.Join(" ", userInput.Exes) + " | " + Application.ProductName;
+            TimeSpan ts = TimeSpan.FromSeconds(n);
+            string timeString =ts.ToString();
+            btnOK.Text = "OK" + " (" + timeString + ")";
+            this.Text = timeString + " | " + string.Join(" ", userInput.Exes) + " | " + Application.ProductName;
             timerMain.Tag = n;
         }
 
