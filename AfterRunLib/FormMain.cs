@@ -12,12 +12,21 @@ namespace Ambiesoft.AfterRunLib
 {
     public partial class FormMain : Form
     {
+        readonly string SECTION_SETTINGS = "Settings";
+        readonly string KEY_LOCATION = "Location";
+        readonly string KEY_COLUMNWIDTH = "ColumnWidth";
+
         readonly UserInput userInput = null;
 
         public FormMain(UserInput ui)
         {
             userInput = ui;
             InitializeComponent();
+
+            HashIni ini = Profile.ReadAll(Program.IniPath);
+
+            AmbLib.LoadFormXYWH(this, KEY_LOCATION, ini);
+            AmbLib.LoadListViewColumnWidth(lvExes, SECTION_SETTINGS, KEY_COLUMNWIDTH, ini);
         }
 
         private void LaunchAndClose()
@@ -209,6 +218,22 @@ namespace Ambiesoft.AfterRunLib
             {
                 TopMost = false;
                 TopMost = true;
+            }
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            HashIni ini = Profile.ReadAll(Program.IniPath);
+
+            if (!AmbLib.SaveFormXYWH(this, KEY_LOCATION, ini) || 
+                !AmbLib.SaveListViewColumnWidth(lvExes, SECTION_SETTINGS, KEY_COLUMNWIDTH, ini) ||
+                !Profile.WriteAll(ini, Program.IniPath))
+            {
+                CppUtils.CenteredMessageBox(this,
+                    "FFF",
+                    Application.ProductName,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
     }

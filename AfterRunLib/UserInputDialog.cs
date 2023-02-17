@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -18,15 +19,6 @@ namespace Ambiesoft.AfterRunLib
         readonly string KEY_EXECUTABLE = "Executable";
         readonly string KEY_ARGUMENT = "Argument";
         readonly string KEY_INTERVAL = "Interval";
-        string IniPath
-        {
-            get
-            {
-                return Path.Combine(
-                    Path.GetDirectoryName(Application.ExecutablePath),
-                    Path.GetFileNameWithoutExtension(Application.ExecutablePath) + ".ini");
-            }
-        }
 
         UserInput ui_;
         public UserInputDialog(UserInput ui)
@@ -35,7 +27,7 @@ namespace Ambiesoft.AfterRunLib
 
             this.ui_ = ui;
 
-            HashIni ini = Ambiesoft.Profile.ReadAll(IniPath);
+            HashIni ini = Ambiesoft.Profile.ReadAll(Program.IniPath);
             string s;
             if(ui.ExeArgs.Count !=0)
             {
@@ -107,13 +99,13 @@ namespace Ambiesoft.AfterRunLib
 
         private void btnSetAsDefault_Click(object sender, EventArgs e)
         {
-            HashIni ini = Profile.ReadAll(IniPath);
+            HashIni ini = Profile.ReadAll(Program.IniPath);
 
             Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_EXECUTABLE, txtExe.Text, ini);
             Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_ARGUMENT, txtArg.Text, ini);
             Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_INTERVAL, txtInterval.Text, ini);
 
-            if(!Profile.WriteAll(ini,IniPath))
+            if(!Profile.WriteAll(ini,Program.IniPath))
             {
                 CppUtils.CenteredMessageBox(this,
                     "FFF",
@@ -121,6 +113,17 @@ namespace Ambiesoft.AfterRunLib
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            string newFile = AmbLib.GetOpenFileDialog("FFF", AmbLib.GETOPENFILEDIALOGTYPE.APP);
+            if(string.IsNullOrWhiteSpace(newFile))
+            {
+                return;
+            }
+
+            txtExe.Text = newFile; 
         }
     }
 }

@@ -67,12 +67,12 @@
             // 
             // lvExes
             // 
+            resources.ApplyResources(this.lvExes, "lvExes");
             this.lvExes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colExecutable,
             this.colArgument});
             this.lvExes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvExes.HideSelection = false;
-            resources.ApplyResources(this.lvExes, "lvExes");
             this.lvExes.MultiSelect = false;
             this.lvExes.Name = "lvExes";
             this.lvExes.ShowItemToolTips = true;
@@ -91,15 +91,15 @@
             // 
             this.AcceptButton = this.btnOK;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
             this.Controls.Add(this.lvExes);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "FormMain";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.ResumeLayout(false);

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.IO;
 
 namespace Ambiesoft.AfterRunLib
 {
@@ -52,6 +53,16 @@ namespace Ambiesoft.AfterRunLib
                     return true;
             }
             return false;
+        }
+
+        internal static string IniPath
+        {
+            get
+            {
+                return Path.Combine(
+                    Path.GetDirectoryName(Application.ExecutablePath),
+                    Path.GetFileNameWithoutExtension(Application.ExecutablePath) + ".ini");
+            }
         }
 
         internal static int parseDuration(string arg)
