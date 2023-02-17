@@ -1,3 +1,5 @@
+Added the ListView on the main Window
+
 2023/02/17 v2.0.9
 Remaining time display changed from seconds to 00:00:00 format
 

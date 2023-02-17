@@ -126,15 +126,28 @@ namespace Ambiesoft.AfterRunLib
             }
             if (!userInput.IsShutdown)
             {
-                String s = String.Format(Properties.Resources.Launching,
-                    string.Join(" ", userInput.Exes));
-                labelTitle.Text = s;
+                labelTitle.Text = Properties.Resources.Launching;
             }
             else
             {
                 labelTitle.Text = Properties.Resources.Shutdowning;
             }
 
+            if (userInput.IsShutdown)
+            {
+                lvExes.Enabled = false;
+            }
+            else
+            {
+                foreach (var exes in userInput.ExeArgs)
+                {
+                    ListViewItem item = new ListViewItem();
+                    item.Text = exes.Exe;
+                    item.SubItems.Add(exes.Arg);
+
+                    lvExes.Items.Add(item);
+                }
+            }
             if (userInput.Interval != null)
             {
                 Text = "CountDown" + " " + Text;

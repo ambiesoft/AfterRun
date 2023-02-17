@@ -143,7 +143,7 @@
     <value>Invalid Window Style</value>
   </data>
   <data name="Launching" xml:space="preserve">
-    <value>{0} を起動しています</value>
+    <value>以下のプログラムが実行されます。</value>
   </data>
   <data name="MultipleInputs" xml:space="preserve">
     <value>多重入力</value>

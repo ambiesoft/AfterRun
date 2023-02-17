@@ -34,6 +34,9 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.labelTitle = new System.Windows.Forms.Label();
+            this.lvExes = new System.Windows.Forms.ListView();
+            this.colExecutable = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colArgument = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // btnOK
@@ -62,12 +65,35 @@
             resources.ApplyResources(this.labelTitle, "labelTitle");
             this.labelTitle.Name = "labelTitle";
             // 
+            // lvExes
+            // 
+            this.lvExes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colExecutable,
+            this.colArgument});
+            this.lvExes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvExes.HideSelection = false;
+            resources.ApplyResources(this.lvExes, "lvExes");
+            this.lvExes.MultiSelect = false;
+            this.lvExes.Name = "lvExes";
+            this.lvExes.ShowItemToolTips = true;
+            this.lvExes.UseCompatibleStateImageBehavior = false;
+            this.lvExes.View = System.Windows.Forms.View.Details;
+            // 
+            // colExecutable
+            // 
+            resources.ApplyResources(this.colExecutable, "colExecutable");
+            // 
+            // colArgument
+            // 
+            resources.ApplyResources(this.colArgument, "colArgument");
+            // 
             // FormMain
             // 
             this.AcceptButton = this.btnOK;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
+            this.Controls.Add(this.lvExes);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -87,8 +113,9 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Timer timerMain;
         private System.Windows.Forms.Label labelTitle;
-
-
+        private System.Windows.Forms.ListView lvExes;
+        private System.Windows.Forms.ColumnHeader colExecutable;
+        private System.Windows.Forms.ColumnHeader colArgument;
     }
 }
 

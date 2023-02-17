@@ -115,7 +115,7 @@ namespace Ambiesoft.AfterRunLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Launching {0}..
+        ///   Looks up a localized string similar to The following program will be executed..
         /// </summary>
         internal static string Launching {
             get {

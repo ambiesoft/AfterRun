@@ -143,7 +143,7 @@ ex: afterrun -t SecToWait -exe EXE [-arg ARG]
     <value>Invalid Window Style</value>
   </data>
   <data name="Launching" xml:space="preserve">
-    <value>Launching {0}.</value>
+    <value>The following program will be executed.</value>
   </data>
   <data name="MultipleInputs" xml:space="preserve">
     <value>Multiple Inputs</value>
