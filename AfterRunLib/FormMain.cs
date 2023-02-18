@@ -118,10 +118,18 @@ namespace Ambiesoft.AfterRunLib
                 return;
             }
 
-            TimeSpan ts = TimeSpan.FromSeconds(n);
-            string timeString =ts.ToString();
-            btnOK.Text = "OK" + " (" + timeString + ")";
-            this.Text = timeString + " | " + string.Join(" ", userInput.Exes) + " | " + Application.ProductName;
+            TimeSpan tsCurrent = TimeSpan.FromSeconds(n);
+            string timeString = tsCurrent.ToString();
+
+            Debug.Assert(userInput.Interval != null);
+            TimeSpan tsAll = TimeSpan.FromSeconds(userInput.Interval ?? 0);
+            string timeStringAll = tsAll.ToString();
+
+            btnOK.Text = string.Format("OK ({0})", timeString);
+            this.Text = string.Format("{0}/{1} | {2} | {3}",
+                timeString, timeStringAll,
+                string.Join(" ", userInput.Exes),
+                 Application.ProductName);
             timerMain.Tag = n;
         }
 

@@ -19,81 +19,112 @@ namespace Ambiesoft.AfterRunLib
         readonly string KEY_EXECUTABLE = "Executable";
         readonly string KEY_ARGUMENT = "Argument";
         readonly string KEY_INTERVAL = "Interval";
+        readonly string SECTION_COMBO_INTERVAL = "ComboInterval";
+        readonly string SECTION_COMBO_EXE = "ComboExe";
+        readonly string SECTION_COMBO_ARG = "ComboArg";
+        readonly int MAX_COMBO_SAVECOUNT = 16;
 
         UserInput ui_;
+
         public UserInputDialog(UserInput ui)
         {
             InitializeComponent();
 
             this.ui_ = ui;
-
-            HashIni ini = Ambiesoft.Profile.ReadAll(Program.IniPath);
-            string s;
-            if(ui.ExeArgs.Count !=0)
-            {
-                txtExe.Text = ui.ExeArgs[0].Exe;
-                txtArg.Text = ui.ExeArgs[0].Arg;
-            }
-            else
-            {
-                Profile.GetString(SECTION_DEFAULT_VALUES, KEY_EXECUTABLE, string.Empty, out s, ini);
-                txtExe.Text = s;
-
-                Profile.GetString(SECTION_DEFAULT_VALUES, KEY_ARGUMENT, string.Empty, out s, ini);
-                txtArg.Text = s;
-            }
-
-            if (ui.Interval != null && ui.Interval != 0)
-            {
-                txtInterval.Text = ui.Interval.ToString();
-            }
-            else
-            {
-                Profile.GetString(SECTION_DEFAULT_VALUES, KEY_INTERVAL, string.Empty, out s, ini);
-                txtInterval.Text = s;
-            }
         }
 
         private void UserInputDialog_Load(object sender, EventArgs e)
         {
+            // Setup comboboxes, these lines must not place at Ctor because
+            HashIni ini = Profile.ReadAll(Program.IniPath);
+            string s;
 
+            // cmbExe.Text is not set properly
+            {
+                // First, read recent items
+                AmbLib.LoadComboBox(cmbExe, SECTION_COMBO_EXE, MAX_COMBO_SAVECOUNT, ini);
+                AmbLib.LoadComboBox(cmbArg, SECTION_COMBO_ARG, MAX_COMBO_SAVECOUNT, ini);
+
+                // then read default items
+                if (ui_.ExeArgs.Count != 0)
+                {
+                    cmbExe.Text = ui_.ExeArgs[0].Exe;
+                    cmbArg.Text = ui_.ExeArgs[0].Arg;
+                }
+                else
+                {
+                    Profile.GetString(SECTION_DEFAULT_VALUES, KEY_EXECUTABLE, string.Empty, out s, ini);
+                    cmbExe.Text = s;
+
+                    Profile.GetString(SECTION_DEFAULT_VALUES, KEY_ARGUMENT, string.Empty, out s, ini);
+                    cmbArg.Text = s;
+                }
+            }
+
+            {
+                // First, read recent items
+                AmbLib.LoadComboBox(cmbInterval, SECTION_COMBO_INTERVAL, MAX_COMBO_SAVECOUNT, ini);
+
+                // then read default items
+                if (ui_.Interval != null && ui_.Interval != 0)
+                {
+                    cmbInterval.Text = ui_.Interval.ToString();
+                }
+                else
+                {
+                    Profile.GetString(SECTION_DEFAULT_VALUES, KEY_INTERVAL, string.Empty, out s, ini);
+                    cmbInterval.Text = s;
+                }
+            }
         }
-
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if(txtInterval.Text=="0")
+            if (string.IsNullOrWhiteSpace(cmbInterval.Text) || cmbInterval.Text == "0")
             {
                 CppUtils.CenteredMessageBox(this,
                     "FFF",
                     Application.ProductName,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-                DialogResult = DialogResult.Cancel;
+                DialogResult = DialogResult.None;
                 return;
             }
             try
             {
-                ui_.Interval=Program.parseDuration(txtInterval.Text);
+                ui_.Interval=Program.parseDuration(cmbInterval.Text);
             }
-            catch
+            catch(Exception ex)
             {
                 CppUtils.CenteredMessageBox(this,
-                                    "FFF",
+                                    "FFF" + ex.Message,
                                     Application.ProductName,
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
-                DialogResult = DialogResult.Cancel;
+                DialogResult = DialogResult.None;
                 return;
             }
 
             if (ui_.ExeArgs.Count == 0)
             {
-                ui_.ExeArgs.Add(new ExeArg(txtExe.Text, txtArg.Text));
+                ui_.ExeArgs.Add(new ExeArg(cmbExe.Text, cmbArg.Text));
             }
             else
             {
-                ui_.ExeArgs[0].Exe = txtExe.Text;
-                ui_.ExeArgs[0].Arg = txtArg.Text;
+                ui_.ExeArgs[0].Exe = cmbExe.Text;
+                ui_.ExeArgs[0].Arg = cmbArg.Text;
+            }
+
+            HashIni ini = Profile.ReadAll(Program.IniPath);
+            AmbLib.SaveComboBox(cmbInterval, SECTION_COMBO_INTERVAL, MAX_COMBO_SAVECOUNT, ini);
+            AmbLib.SaveComboBox(cmbExe, SECTION_COMBO_EXE, MAX_COMBO_SAVECOUNT, ini);
+            AmbLib.SaveComboBox(cmbArg, SECTION_COMBO_ARG, MAX_COMBO_SAVECOUNT, ini);
+            if (!Profile.WriteAll(ini, Program.IniPath))
+            {
+                CppUtils.CenteredMessageBox(this,
+                    "FFF",
+                    Application.ProductName,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -101,9 +132,9 @@ namespace Ambiesoft.AfterRunLib
         {
             HashIni ini = Profile.ReadAll(Program.IniPath);
 
-            Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_EXECUTABLE, txtExe.Text, ini);
-            Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_ARGUMENT, txtArg.Text, ini);
-            Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_INTERVAL, txtInterval.Text, ini);
+            Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_EXECUTABLE, cmbExe.Text, ini);
+            Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_ARGUMENT, cmbArg.Text, ini);
+            Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_INTERVAL, cmbInterval.Text, ini);
 
             if(!Profile.WriteAll(ini,Program.IniPath))
             {
@@ -123,7 +154,7 @@ namespace Ambiesoft.AfterRunLib
                 return;
             }
 
-            txtExe.Text = newFile; 
+            cmbExe.Text = newFile; 
         }
     }
 }
