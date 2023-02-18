@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using CommandLine.Utility;
 using System.Diagnostics;
+using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace Ambiesoft.AfterRunLib
 {
@@ -118,6 +119,9 @@ namespace Ambiesoft.AfterRunLib
                 return;
             }
 
+            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
+            TaskbarManager.Instance.SetProgressValue(n, userInput.Interval??1);
+
             TimeSpan tsCurrent = TimeSpan.FromSeconds(n);
             string timeString = tsCurrent.ToString();
 
@@ -171,6 +175,7 @@ namespace Ambiesoft.AfterRunLib
                 if (userInput.Interval == -1)
                 {
                     timerMain.Enabled = false;
+                    TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
                 }
                 else
                 {
@@ -201,6 +206,7 @@ namespace Ambiesoft.AfterRunLib
             {
                 btnOK.Enabled = value;
                 timerMain.Enabled = value;
+                TaskbarManager.Instance.SetProgressState(value?TaskbarProgressBarState.Normal:TaskbarProgressBarState.NoProgress);
             }
         }
 
