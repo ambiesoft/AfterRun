@@ -31,6 +31,12 @@
         "Ambiesoft.AmbLibcpp.pdb",
         "Ambiesoft.Profile.dll",
         "Ambiesoft.Profile.pdb",
+        "Microsoft.WindowsAPICodePack.dll",
+        "Microsoft.WindowsAPICodePack.Shell.dll",
+        "Microsoft.WindowsAPICodePack.Shell.xml",
+        "Microsoft.WindowsAPICodePack.ShellExtensions.dll",
+        "Microsoft.WindowsAPICodePack.ShellExtensions.xml",
+        "Microsoft.WindowsAPICodePack.xml",
         "history.txt",
         "README.md",
         "ja-JP\\Ambiesoft.AfterRunLib.resources.dll"
