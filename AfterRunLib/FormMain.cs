@@ -35,7 +35,7 @@ namespace Ambiesoft.AfterRunLib
                 return;
             EnableLaunch = false;
 
-            this.WindowState = FormWindowState.Normal;
+            // this.WindowState = FormWindowState.Normal;
 
             if (!userInput.IsShutdown)
             {

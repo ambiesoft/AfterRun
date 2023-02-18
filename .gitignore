@@ -6,4 +6,5 @@ obj/
 Release/
 Debug/
 build/
+packages/
 
