@@ -1,3 +1,4 @@
+2023/02/18 v2.0.10
 Added the ListView on the main Window
 Shows progress on the Taskbar 
 Icons added 
