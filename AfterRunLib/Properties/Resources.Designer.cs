@@ -61,6 +61,15 @@ namespace Ambiesoft.AfterRunLib.Properties {
         }
         
         /// <summary>
+        ///   The input dialog cannot be displayed when waiting with the process. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DialogNotDisplayedWhenPidWait {
+            get {
+                return ResourceManager.GetString("DialogNotDisplayedWhenPidWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The input dialog cannot be displayed when there are two or more executable files specified on the command line. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string DialogNotDisplayedWhenTwoExes {

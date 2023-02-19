@@ -340,6 +340,16 @@ namespace Ambiesoft.AfterRunLib
                     messageWithHelp(sb.ToString());
                     return;
                 }
+                if(userInput.PidsToWait.Count> 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(Properties.Resources.DialogNotDisplayedWhenPidWait);
+                    sb.AppendLine();
+                    sb.AppendLine();
+                    sb.Append(errorMessage);
+                    messageWithHelp(sb.ToString());
+                    return;
+                }
                 using (UserInputDialog uid = new UserInputDialog(userInput))
                 {
                     if (DialogResult.OK != uid.ShowDialog())

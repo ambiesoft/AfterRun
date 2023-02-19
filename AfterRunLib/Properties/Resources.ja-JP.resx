@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DialogNotDisplayedWhenPidWait" xml:space="preserve">
+    <value>プロセスと待つときは入力ダイアログを表示できません。</value>
+  </data>
   <data name="DialogNotDisplayedWhenTwoExes" xml:space="preserve">
     <value>コマンドラインで指定した実行ファイルが2つ以上あるときは入力ダイアログを表示できません。</value>
   </data>
