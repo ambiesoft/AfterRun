@@ -36,7 +36,7 @@ winampには **/PLAY** が渡されます。
 ```
 > afterrun -t 10 -exe C:\Linkout\argCheck\x86\argCheck.exe -arg %2Da+-b+-c+%22x+y+z%22
 ```
-argCheckには **a -b -c "x y z"** が渡されます。 **-** は **%2D** に置き換えなければなりません（通常のURLエンコードでは置き換わりません）。
+argCheckには **-a -b -c "x y z"** が渡されます。 **-** は **%2D** に置き換えなければなりません（通常のURLエンコードでは置き換わりません）。
 
 ## プロセスを待ってからプロセスを起動
 ```
