@@ -35,13 +35,16 @@
             this.cmbExe = new System.Windows.Forms.ComboBox();
             this.cmbArg = new System.Windows.Forms.ComboBox();
             this.cmbInterval = new System.Windows.Forms.ComboBox();
+            this.lblDuration = new System.Windows.Forms.Label();
+            this.lblExecutable = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStart.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnStart.Location = new System.Drawing.Point(522, 378);
+            this.btnStart.Location = new System.Drawing.Point(308, 220);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(95, 32);
             this.btnStart.TabIndex = 500;
@@ -53,7 +56,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(624, 378);
+            this.btnCancel.Location = new System.Drawing.Point(409, 219);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(95, 32);
             this.btnCancel.TabIndex = 600;
@@ -63,7 +66,7 @@
             // btnSetAsDefault
             // 
             this.btnSetAsDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSetAsDefault.Location = new System.Drawing.Point(12, 376);
+            this.btnSetAsDefault.Location = new System.Drawing.Point(12, 220);
             this.btnSetAsDefault.Name = "btnSetAsDefault";
             this.btnSetAsDefault.Size = new System.Drawing.Size(154, 32);
             this.btnSetAsDefault.TabIndex = 400;
@@ -74,7 +77,7 @@
             // btnBrowseExe
             // 
             this.btnBrowseExe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseExe.Location = new System.Drawing.Point(662, 77);
+            this.btnBrowseExe.Location = new System.Drawing.Point(447, 83);
             this.btnBrowseExe.Name = "btnBrowseExe";
             this.btnBrowseExe.Size = new System.Drawing.Size(57, 20);
             this.btnBrowseExe.TabIndex = 250;
@@ -87,9 +90,9 @@
             this.cmbExe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbExe.FormattingEnabled = true;
-            this.cmbExe.Location = new System.Drawing.Point(66, 77);
+            this.cmbExe.Location = new System.Drawing.Point(12, 83);
             this.cmbExe.Name = "cmbExe";
-            this.cmbExe.Size = new System.Drawing.Size(590, 23);
+            this.cmbExe.Size = new System.Drawing.Size(429, 23);
             this.cmbExe.TabIndex = 200;
             // 
             // cmbArg
@@ -97,18 +100,45 @@
             this.cmbArg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbArg.FormattingEnabled = true;
-            this.cmbArg.Location = new System.Drawing.Point(66, 142);
+            this.cmbArg.Location = new System.Drawing.Point(15, 142);
             this.cmbArg.Name = "cmbArg";
-            this.cmbArg.Size = new System.Drawing.Size(590, 23);
+            this.cmbArg.Size = new System.Drawing.Size(426, 23);
             this.cmbArg.TabIndex = 300;
             // 
             // cmbInterval
             // 
             this.cmbInterval.FormattingEnabled = true;
-            this.cmbInterval.Location = new System.Drawing.Point(66, 35);
+            this.cmbInterval.Location = new System.Drawing.Point(12, 29);
             this.cmbInterval.Name = "cmbInterval";
             this.cmbInterval.Size = new System.Drawing.Size(121, 23);
             this.cmbInterval.TabIndex = 100;
+            // 
+            // lblDuration
+            // 
+            this.lblDuration.AutoSize = true;
+            this.lblDuration.Location = new System.Drawing.Point(12, 11);
+            this.lblDuration.Name = "lblDuration";
+            this.lblDuration.Size = new System.Drawing.Size(62, 15);
+            this.lblDuration.TabIndex = 50;
+            this.lblDuration.Text = "&Duration:";
+            // 
+            // lblExecutable
+            // 
+            this.lblExecutable.AutoSize = true;
+            this.lblExecutable.Location = new System.Drawing.Point(12, 65);
+            this.lblExecutable.Name = "lblExecutable";
+            this.lblExecutable.Size = new System.Drawing.Size(75, 15);
+            this.lblExecutable.TabIndex = 150;
+            this.lblExecutable.Text = "&Executable:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 124);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(70, 15);
+            this.label1.TabIndex = 275;
+            this.label1.Text = "&Argument:";
             // 
             // UserInputDialog
             // 
@@ -116,7 +146,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(731, 421);
+            this.ClientSize = new System.Drawing.Size(516, 264);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblExecutable);
+            this.Controls.Add(this.lblDuration);
             this.Controls.Add(this.cmbInterval);
             this.Controls.Add(this.cmbArg);
             this.Controls.Add(this.cmbExe);
@@ -132,6 +165,7 @@
             this.Text = "Input | Afterrun";
             this.Load += new System.EventHandler(this.UserInputDialog_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -144,5 +178,8 @@
         private System.Windows.Forms.ComboBox cmbExe;
         private System.Windows.Forms.ComboBox cmbArg;
         private System.Windows.Forms.ComboBox cmbInterval;
+        private System.Windows.Forms.Label lblDuration;
+        private System.Windows.Forms.Label lblExecutable;
+        private System.Windows.Forms.Label label1;
     }
 }
