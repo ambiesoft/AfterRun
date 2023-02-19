@@ -1,3 +1,6 @@
+2023/02/19 v2.0.11
+The direction of the progress bar has been reversed
+
 2023/02/18 v2.0.10
 Added the ListView on the main Window
 Shows progress on the Taskbar 

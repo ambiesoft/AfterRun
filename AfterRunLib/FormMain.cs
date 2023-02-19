@@ -120,7 +120,7 @@ namespace Ambiesoft.AfterRunLib
             }
 
             TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
-            TaskbarManager.Instance.SetProgressValue(n, userInput.Interval??1);
+            TaskbarManager.Instance.SetProgressValue((userInput.Interval??1) - n, userInput.Interval??1);
 
             TimeSpan tsCurrent = TimeSpan.FromSeconds(n);
             string timeString = tsCurrent.ToString();
