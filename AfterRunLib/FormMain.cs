@@ -244,7 +244,7 @@ namespace Ambiesoft.AfterRunLib
                 !Profile.WriteAll(ini, Program.IniPath))
             {
                 CppUtils.CenteredMessageBox(this,
-                    "FFF",
+                    Properties.Resources.FailedToSaveIni,
                     Application.ProductName,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

@@ -117,89 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DialogNotDisplayedWhenTwoExes" xml:space="preserve">
-    <value>コマンドラインで指定した実行ファイルが2つ以上あるときは入力ダイアログを表示できません。</value>
+  <data name="btnStart.Text" xml:space="preserve">
+    <value>スタート(&amp;S)</value>
   </data>
-  <data name="DurationNoEntered" xml:space="preserve">
-    <value>時間が入力されていません。</value>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>キャンセル(&amp;C)</value>
   </data>
-  <data name="FailedToSaveIni" xml:space="preserve">
-    <value>設定情報の保存に失敗しました。</value>
+  <data name="btnSetAsDefault.Text" xml:space="preserve">
+    <value>デフォルトとして保存(&amp;D)</value>
   </data>
-  <data name="HelpString" xml:space="preserve">
-    <value>Afterrun : 指定時間後にプログラムを実行します
-
-例: afterrun -t SecToWait -exe EXE [-arg ARG]
-
--c : ウインドウをセンタリングします
--m : ウインドウを最上位に表示します
--p : 終了を待つpid
--t : 街秒数を指定します。mを指定すると無限に待ちます。'2m'で２分、'1h'で１時間、'1:30:30'で１時間３０分３０秒、'2:30'で２分３０秒待ちます
--ws : 'normal' で通常のウインドウを表示、'minimized' で最小化されたウインドウを表示、 'maximized' で最大化されたウインドウを表示します
--exe EXE : 実行ファイルを指定します
--arg ARG : 直前の実行ファイルのコマンドライン引数を指定します</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblDuration.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 15</value>
   </data>
-  <data name="IntervalAlreadySet" xml:space="preserve">
-    <value>インターバルは既に指定されています</value>
+  <data name="lblDuration.Text" xml:space="preserve">
+    <value>時間(&amp;D):</value>
   </data>
-  <data name="InvalidDurationFormat" xml:space="preserve">
-    <value>無効な時間フォーマットです</value>
+  <data name="lblExecutable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 15</value>
   </data>
-  <data name="InvalidInterval" xml:space="preserve">
-    <value>Invalid Interval</value>
+  <data name="lblExecutable.Text" xml:space="preserve">
+    <value>実行ファイル(&amp;E):</value>
   </data>
-  <data name="InvalidProcessId" xml:space="preserve">
-    <value>無効なプロセスIDです {0}</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 15</value>
   </data>
-  <data name="InvalidWindowStyle" xml:space="preserve">
-    <value>Invalid Window Style</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>コマンドライン(&amp;A):</value>
   </data>
-  <data name="Launching" xml:space="preserve">
-    <value>以下のプログラムが実行されます。</value>
-  </data>
-  <data name="MultipleInputs" xml:space="preserve">
-    <value>多重入力</value>
-  </data>
-  <data name="MultipleIntervals" xml:space="preserve">
-    <value>Multiple Interval Values</value>
-  </data>
-  <data name="NoArgumentForInterval" xml:space="preserve">
-    <value>No Arugment for interval value</value>
-  </data>
-  <data name="NoArgumentForProcessId" xml:space="preserve">
-    <value>プロセスIDが指定されていません</value>
-  </data>
-  <data name="NoArgumentForWindowStyle" xml:space="preserve">
-    <value>No Argument for Window Style</value>
-  </data>
-  <data name="NoArguments" xml:space="preserve">
-    <value>引数がありません</value>
-  </data>
-  <data name="NoArgumentSpecified" xml:space="preserve">
-    <value>-arg引数が指定されていません</value>
-  </data>
-  <data name="NoExecutableSpecified" xml:space="preserve">
-    <value>-exe引数が指定されていません</value>
-  </data>
-  <data name="PIDNotFound" xml:space="preserve">
-    <value>プロセスID {0} が見つかりません</value>
-  </data>
-  <data name="SelectExecutable" xml:space="preserve">
-    <value>実行ファイルを選択</value>
-  </data>
-  <data name="Shutdowning" xml:space="preserve">
-    <value>シャットダウンします・・・</value>
-  </data>
-  <data name="T_AND_P_CANNOTSPECIFIED_AT_THE_SAME_TIME" xml:space="preserve">
-    <value>'-t' と '-p' は同時に指定できません。</value>
-  </data>
-  <data name="T_OR_P_MUST_BE_SPECIFIED" xml:space="preserve">
-    <value>'-t' か '-p' のどちらかを指定しなければなりません。</value>
-  </data>
-  <data name="UnknownOption" xml:space="preserve">
-    <value>未知のオプション</value>
-  </data>
-  <data name="UseUrlEncodeToPassArg" xml:space="preserve">
-    <value>-arg引数を渡すにはUrlエンコードを使ってください</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>入力 | Afterrun</value>
   </data>
 </root>

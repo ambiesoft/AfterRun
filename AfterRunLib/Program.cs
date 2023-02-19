@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Ambiesoft.AfterRunLib
 {
@@ -67,6 +68,8 @@ namespace Ambiesoft.AfterRunLib
 
         internal static int parseDuration(string arg)
         {
+            arg = Regex.Replace(arg, "[^A-Za-z0-9]", ":");
+            arg = arg.Trim(':');
             TimeSpan timeSpan = new TimeSpan(0, 0, 0);
             
             {
@@ -201,7 +204,6 @@ namespace Ambiesoft.AfterRunLib
                         }
                         else
                         {
-
                             try
                             {
                                 interval = parseDuration(args[i]);
@@ -326,8 +328,18 @@ namespace Ambiesoft.AfterRunLib
                     pidsToWait,
                     pws);
 
-            if (needsDialog == true)
+            if (needsDialog == true || (!userInput.IsShutdown && userInput.ExeArgs.Count == 0))
             {
+                if(userInput.ExeArgs.Count > 1)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(Properties.Resources.DialogNotDisplayedWhenTwoExes);
+                    sb.AppendLine();
+                    sb.AppendLine();
+                    sb.Append(errorMessage);
+                    messageWithHelp(sb.ToString());
+                    return;
+                }
                 using (UserInputDialog uid = new UserInputDialog(userInput))
                 {
                     if (DialogResult.OK != uid.ShowDialog())

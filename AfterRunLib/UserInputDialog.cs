@@ -82,7 +82,7 @@ namespace Ambiesoft.AfterRunLib
             if (string.IsNullOrWhiteSpace(cmbInterval.Text) || cmbInterval.Text == "0")
             {
                 CppUtils.CenteredMessageBox(this,
-                    "FFF",
+                    Properties.Resources.DurationNoEntered,
                     Application.ProductName,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -91,12 +91,12 @@ namespace Ambiesoft.AfterRunLib
             }
             try
             {
-                ui_.Interval=Program.parseDuration(cmbInterval.Text);
+                ui_.Interval = Program.parseDuration(cmbInterval.Text);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CppUtils.CenteredMessageBox(this,
-                                    "FFF" + ex.Message,
+                                    ex.Message,
                                     Application.ProductName,
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
@@ -121,7 +121,7 @@ namespace Ambiesoft.AfterRunLib
             if (!Profile.WriteAll(ini, Program.IniPath))
             {
                 CppUtils.CenteredMessageBox(this,
-                    "FFF",
+                    Properties.Resources.FailedToSaveIni,
                     Application.ProductName,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -136,10 +136,10 @@ namespace Ambiesoft.AfterRunLib
             Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_ARGUMENT, cmbArg.Text, ini);
             Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_INTERVAL, cmbInterval.Text, ini);
 
-            if(!Profile.WriteAll(ini,Program.IniPath))
+            if (!Profile.WriteAll(ini, Program.IniPath))
             {
                 CppUtils.CenteredMessageBox(this,
-                    "FFF",
+                    Properties.Resources.FailedToSaveIni,
                     Application.ProductName,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -148,13 +148,35 @@ namespace Ambiesoft.AfterRunLib
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            string newFile = AmbLib.GetOpenFileDialog("FFF", AmbLib.GETOPENFILEDIALOGTYPE.APP);
-            if(string.IsNullOrWhiteSpace(newFile))
+            string newFile = AmbLib.GetOpenFileDialog(Properties.Resources.SelectExecutable,
+                AmbLib.GETOPENFILEDIALOGTYPE.APP);
+            if (string.IsNullOrWhiteSpace(newFile))
             {
                 return;
             }
 
-            cmbExe.Text = newFile; 
+            cmbExe.Text = newFile;
+        }
+
+        private void cmbInterval_TextChanged(object sender, EventArgs e)
+        {
+            lblDurationInformation.Text = string.Empty;
+
+            if (string.IsNullOrWhiteSpace(cmbInterval.Text) || cmbInterval.Text == "0")
+            {
+                lblDurationInformation.Text = Properties.Resources.DurationNoEntered;
+            }
+
+            try
+            {
+                TimeSpan ts = TimeSpan.FromSeconds(Program.parseDuration(cmbInterval.Text));
+                lblDurationInformation.Text = ts.ToString();
+            }
+            catch (Exception)
+            {
+                lblDurationInformation.Text = Properties.Resources.InvalidDurationFormat;
+                return;
+            }
         }
     }
 }
