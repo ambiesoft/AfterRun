@@ -126,6 +126,7 @@ namespace Ambiesoft.AfterRunLib
             List<ExeArg> exeArgs = new List<ExeArg>();
             FormStartPosition fsp = default(FormStartPosition);
             bool topMost = false;
+            FormWindowState aws = default(FormWindowState);
             System.Diagnostics.ProcessWindowStyle pws = default(System.Diagnostics.ProcessWindowStyle);
 
             do
@@ -218,6 +219,36 @@ namespace Ambiesoft.AfterRunLib
                             }
                         }
                     }
+                    else if (args[i].StartsWith("-aws"))
+                    {
+                        if ((i - 1) == args.Length)
+                        {
+                            messageWithHelp(Properties.Resources.NoArgumentForWindowStyle);
+                            return;
+                        }
+                        ++i;
+                        
+                        if (args[i] == "normal")
+                        {
+                            aws = FormWindowState.Normal;
+                        }
+                        else if (args[i] == "minimized")
+                        {
+                            aws = FormWindowState.Minimized;
+                        }
+                        else if (args[i] == "maximized")
+                        {
+                            aws = FormWindowState.Maximized;
+                        }
+                        else
+                        {
+                            string message = Properties.Resources.InvalidWindowStyle;
+                            message += " : ";
+                            message += args[i];
+                            messageWithHelp(message);
+                            return;
+                        }
+                    }
                     else if (args[i].StartsWith("-ws"))
                     {
                         if ((i - 1) == args.Length)
@@ -226,6 +257,7 @@ namespace Ambiesoft.AfterRunLib
                             return;
                         }
                         ++i;
+
                         if (args[i] == "normal")
                         {
                             pws = System.Diagnostics.ProcessWindowStyle.Normal;
@@ -360,6 +392,7 @@ namespace Ambiesoft.AfterRunLib
             FormMain form = new FormMain(userInput);
             form.StartPosition = fsp;
             form.TopMost = topMost;
+            form.WindowState = aws;
 
             Application.Run(form);
         }

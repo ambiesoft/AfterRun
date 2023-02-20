@@ -138,7 +138,8 @@ ex: afterrun -t SecToWait -exe EXE [-arg ARG]
 -m : Set window Topmost
 -p : Wait pid to finish
 -t : Seconds to wait, or 'm' to wait forever. Specify '5m' for five minutes, '2h' for two hours, '1:30:30' for one hour and 30 minutes and 30 seconds or '4:30' for 4 minutes and 30 seconds
--ws : Set 'normal' for showing in normal window, 'minimized' for minimized window or 'maximized' for maximized window
+-aws : Set the Window State of AfterRun, 'normal' for showing in normal window, 'minimized' for minimized window or 'maximized' for maximized window
+-ws : Set the Window State of launching process
 -exe EXE : Specify a executable file
 -arg ARG : Specify an argument for the previous executable</value>
   </data>
