@@ -89,6 +89,18 @@ namespace Ambiesoft.AfterRunLib
                 DialogResult = DialogResult.None;
                 return;
             }
+
+            if (string.IsNullOrWhiteSpace(cmbExe.Text) && string.IsNullOrWhiteSpace(cmbArg.Text))
+            {
+                CppUtils.CenteredMessageBox(this,
+                                    Properties.Resources.ExeAndArgBothNoEntered,
+                                    Application.ProductName,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                DialogResult = DialogResult.None;
+                return;
+            }
+
             try
             {
                 ui_.Interval = Program.parseDuration(cmbInterval.Text);

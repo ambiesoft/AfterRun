@@ -126,6 +126,9 @@
   <data name="DurationNoEntered" xml:space="preserve">
     <value>時間が入力されていません。</value>
   </data>
+  <data name="ExeAndArgBothNoEntered" xml:space="preserve">
+    <value>実行ファイルとコマンドラインの両方が入力されていません</value>
+  </data>
   <data name="FailedToSaveIni" xml:space="preserve">
     <value>設定情報の保存に失敗しました。</value>
   </data>

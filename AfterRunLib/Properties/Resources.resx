@@ -126,6 +126,9 @@
   <data name="DurationNoEntered" xml:space="preserve">
     <value>Duration has not been entered.</value>
   </data>
+  <data name="ExeAndArgBothNoEntered" xml:space="preserve">
+    <value>Both Executable and Argument not entered.</value>
+  </data>
   <data name="FailedToSaveIni" xml:space="preserve">
     <value>Failed to save configuration information.</value>
   </data>
