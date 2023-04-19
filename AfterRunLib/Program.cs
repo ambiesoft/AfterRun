@@ -13,10 +13,6 @@ namespace Ambiesoft.AfterRunLib
 {
     public static class Program
     {
-        /// <summary>
-        /// アプリケーションのメイン エントリ ポイントです。
-        /// </summary>
-
         static void messageWithHelp(string message, MessageBoxIcon icon)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
