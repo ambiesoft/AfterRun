@@ -121,6 +121,7 @@ namespace Ambiesoft.AfterRunLib
 
             List<ExeArg> exeArgs = new List<ExeArg>();
             FormStartPosition fsp = default(FormStartPosition);
+            bool defaultCancel = false;
             bool topMost = false;
             FormWindowState aws = default(FormWindowState);
             System.Diagnostics.ProcessWindowStyle pws = default(System.Diagnostics.ProcessWindowStyle);
@@ -141,6 +142,10 @@ namespace Ambiesoft.AfterRunLib
                     else if (args[i].StartsWith("-c"))
                     {
                         fsp = FormStartPosition.CenterScreen;
+                    }
+                    else if (args[i].StartsWith("-d"))
+                    {
+                        defaultCancel = true;
                     }
                     else if (args[i].StartsWith("-m"))
                     {
@@ -354,7 +359,8 @@ namespace Ambiesoft.AfterRunLib
                     exeArgs,
                     interval,
                     pidsToWait,
-                    pws);
+                    pws,
+                    defaultCancel);
 
             if (needsDialog == true || (!userInput.IsShutdown && userInput.ExeArgs.Count == 0))
             {
@@ -389,7 +395,6 @@ namespace Ambiesoft.AfterRunLib
             form.StartPosition = fsp;
             form.TopMost = topMost;
             form.WindowState = aws;
-
             Application.Run(form);
         }
     }

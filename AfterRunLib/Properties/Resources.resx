@@ -138,6 +138,7 @@
 ex: afterrun -t SecToWait -exe EXE [-arg ARG]
 
 -c : Position window at Center
+-d : Does not start when timeout
 -m : Set window Topmost
 -p : Wait pid to finish
 -t : Seconds to wait, or 'm' to wait forever. Specify '5m' for five minutes, '2h' for two hours, '1:30:30' for one hour and 30 minutes and 30 seconds or '4:30' for 4 minutes and 30 seconds

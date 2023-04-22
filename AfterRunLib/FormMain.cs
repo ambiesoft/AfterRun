@@ -17,20 +17,47 @@ namespace Ambiesoft.AfterRunLib
         readonly string KEY_LOCATION = "Location";
         readonly string KEY_COLUMNWIDTH = "ColumnWidth";
 
-        readonly UserInput userInput = null;
+        readonly UserInput userInput_ = null;
 
+        readonly string okText_;
+        readonly string cancelText_;
         public FormMain(UserInput ui)
         {
-            userInput = ui;
+            userInput_ = ui;
+
             InitializeComponent();
 
             HashIni ini = Profile.ReadAll(Program.IniPath);
 
             AmbLib.LoadFormXYWH(this, KEY_LOCATION, ini);
             AmbLib.LoadListViewColumnWidth(lvExes, SECTION_SETTINGS, KEY_COLUMNWIDTH, ini);
+
+            // preserve btn text
+            okText_ = btnOK.Text;
+            cancelText_=btnCancel.Text;
+
+            if(userInput_.DefaultCancel)
+            {
+                // Swap the size of the OK and Cancel button
+                Size okSize = btnOK.Size;
+                int distance = btnCancel.Location.X-(btnOK.Location.X+btnOK.Size.Width);
+                Debug.Assert(distance > 0);
+                Size cancelSize = btnCancel.Size;
+
+                btnOK.Size = cancelSize; 
+                btnCancel.Size = okSize;
+
+                int xPosOfRightButton =btnOK.Location.X + btnOK.Size.Width +
+                    btnOK.Padding.Right + btnCancel.Padding.Left +
+                    btnOK.Margin.Right+btnCancel.Margin.Left; 
+                btnCancel.Location=new Point(xPosOfRightButton,btnOK.Location.Y);
+
+                btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+                btnCancel.Anchor=AnchorStyles.Bottom | AnchorStyles.Left|AnchorStyles.Right;
+            }
         }
 
-        private void LaunchAndClose()
+        private void LaunchAndClose(bool bDoLaunch)
         {
             if (!EnableLaunch)
                 return;
@@ -38,40 +65,47 @@ namespace Ambiesoft.AfterRunLib
 
             // this.WindowState = FormWindowState.Normal;
 
-            if (!userInput.IsShutdown)
+            if (bDoLaunch || !userInput_.DefaultCancel)
             {
-                foreach (var exearg in userInput.ExeArgs)
+                if (!userInput_.IsShutdown)
                 {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    if (!string.IsNullOrWhiteSpace(exearg.Exe))
+                    foreach (var exearg in userInput_.ExeArgs)
                     {
-                        psi.FileName = exearg.Exe;
-                        psi.Arguments = exearg.Arg;
-                    }
-                    else
-                    {
-                        psi.FileName = exearg.Arg;
-                    }
-                    psi.WindowStyle = userInput.LaunchingProcessWindowStyle;
-                    psi.UseShellExecute = true;
-                    try
-                    {
-                        System.Diagnostics.Process.Start(psi);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message,
-                            Application.ProductName,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        ProcessStartInfo psi = new ProcessStartInfo();
+                        if (!string.IsNullOrWhiteSpace(exearg.Exe))
+                        {
+                            psi.FileName = exearg.Exe;
+                            psi.Arguments = exearg.Arg;
+                        }
+                        else
+                        {
+                            psi.FileName = exearg.Arg;
+                        }
+                        psi.WindowStyle = userInput_.LaunchingProcessWindowStyle;
+                        psi.UseShellExecute = true;
+                        try
+                        {
+                            System.Diagnostics.Process.Start(psi);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message,
+                                Application.ProductName,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
                     }
                 }
-            }
-            else
-            {
-                AmbLib.ExitWin(AmbLib.EXITWINTYPE.EXITWIN_SHUTDOWN);
+                else
+                {
+                    AmbLib.ExitWin(AmbLib.EXITWINTYPE.EXITWIN_SHUTDOWN);
+                }
             }
             Close();
+        }
+        void LaunchAndClose()
+        {
+            LaunchAndClose(false);
         }
 
         private void timerMain_Tick(object sender, EventArgs e)
@@ -92,10 +126,10 @@ namespace Ambiesoft.AfterRunLib
         }
         void timerMain_TickWaitPidsToTerminate()
         {
-            var waitsPid = new List<int>(userInput.PidsToWait);
+            var waitsPid = new List<int>(userInput_.PidsToWait);
             foreach (Process p in Process.GetProcesses())
             {
-                if (userInput.PidsToWait.Contains(p.Id))
+                if (userInput_.PidsToWait.Contains(p.Id))
                 {
                     // process still exists
                     return;
@@ -120,32 +154,35 @@ namespace Ambiesoft.AfterRunLib
             }
 
             TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
-            TaskbarManager.Instance.SetProgressValue((userInput.Interval??1) - n, userInput.Interval??1);
+            TaskbarManager.Instance.SetProgressValue((userInput_.Interval??1) - n, userInput_.Interval??1);
 
             TimeSpan tsCurrent = TimeSpan.FromSeconds(n);
             string timeString = tsCurrent.ToString();
 
-            Debug.Assert(userInput.Interval != null);
-            TimeSpan tsAll = TimeSpan.FromSeconds(userInput.Interval ?? 0);
+            Debug.Assert(userInput_.Interval != null);
+            TimeSpan tsAll = TimeSpan.FromSeconds(userInput_.Interval ?? 0);
             string timeStringAll = tsAll.ToString();
 
-            btnOK.Text = string.Format("OK ({0})", timeString);
+            string btnText = userInput_.DefaultCancel ? cancelText_ : okText_;
+            Button targetButton = userInput_.DefaultCancel ? btnCancel : btnOK;
+
+            targetButton.Text = string.Format("{0} ({1})", btnText, timeString);
             this.Text = string.Format("{0}/{1} | {2} | {3}",
                 timeString, timeStringAll,
-                string.Join(" ", userInput.Exes),
+                string.Join(" ", userInput_.Exes),
                  Application.ProductName);
             timerMain.Tag = n;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            if (!userInput.IsShutdown && userInput.ExeArgs.Count == 0)
+            if (!userInput_.IsShutdown && userInput_.ExeArgs.Count == 0)
             {
                 MessageBox.Show(Properties.Resources.NoArguments);
                 Close();
                 return;
             }
-            if (!userInput.IsShutdown)
+            if (!userInput_.IsShutdown)
             {
                 labelTitle.Text = Properties.Resources.Launching;
             }
@@ -154,13 +191,13 @@ namespace Ambiesoft.AfterRunLib
                 labelTitle.Text = Properties.Resources.Shutdowning;
             }
 
-            if (userInput.IsShutdown)
+            if (userInput_.IsShutdown)
             {
                 lvExes.Enabled = false;
             }
             else
             {
-                foreach (var exes in userInput.ExeArgs)
+                foreach (var exes in userInput_.ExeArgs)
                 {
                     ListViewItem item = new ListViewItem();
                     item.Text = exes.Exe;
@@ -169,24 +206,24 @@ namespace Ambiesoft.AfterRunLib
                     lvExes.Items.Add(item);
                 }
             }
-            if (userInput.Interval != null)
+            if (userInput_.Interval != null)
             {
                 Text = "CountDown" + " " + Text;
-                if (userInput.Interval == -1)
+                if (userInput_.Interval == -1)
                 {
                     timerMain.Enabled = false;
                     TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
                 }
                 else
                 {
-                    timerMain.Tag = userInput.Interval;
+                    timerMain.Tag = userInput_.Interval;
                 }
             }
-            else if (userInput.PidsToWait != null)
+            else if (userInput_.PidsToWait != null)
             {
                 Text = "Wait Process" + " " + Text;
                 timerMain.Interval = 5000;
-                timerMain.Tag = userInput.PidsToWait;
+                timerMain.Tag = userInput_.PidsToWait;
             }
             else
             {
@@ -218,7 +255,7 @@ namespace Ambiesoft.AfterRunLib
                 return;
             }
 
-            LaunchAndClose();
+            LaunchAndClose(true);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

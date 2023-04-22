@@ -111,10 +111,11 @@ namespace Ambiesoft.AfterRunLib.Properties {
         ///ex: afterrun -t SecToWait -exe EXE [-arg ARG]
         ///
         ///-c : Position window at Center
+        ///-d : Does not start when timeout
         ///-m : Set window Topmost
         ///-p : Wait pid to finish
         ///-t : Seconds to wait, or &apos;m&apos; to wait forever. Specify &apos;5m&apos; for five minutes, &apos;2h&apos; for two hours, &apos;1:30:30&apos; for one hour and 30 minutes and 30 seconds or &apos;4:30&apos; for 4 minutes and 30 seconds
-        ///-aws : Set the Window State of AfterRun, &apos;normal&apos; for showing in normal window, &apos;minimized&apos; for minimized window or &apos;maximized&apos; for maximized [rest of string was truncated]&quot;;.
+        ///-aws : Set the Window State of AfterRun, &apos;normal&apos; for showing in normal window, &apos;minimized&apos; for minimized w [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HelpString {
             get {

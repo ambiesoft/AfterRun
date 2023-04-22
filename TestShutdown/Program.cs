@@ -21,7 +21,7 @@ namespace TestShutdown
                     false,
                     null,
                     null,
-                    null)
+                    null),
                 );
             Application.Run(form);
         }

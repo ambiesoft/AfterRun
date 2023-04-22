@@ -58,6 +58,12 @@ namespace Ambiesoft.AfterRunLib
             get { return _isShutdown; }
         }
 
+        bool _defaultCancel = false;
+        public bool DefaultCancel
+        {
+            get { return _defaultCancel; }
+        }
+
         ProcessWindowStyle _launchingProcessWindowStyle;
         public ProcessWindowStyle LaunchingProcessWindowStyle
         {
@@ -68,20 +74,22 @@ namespace Ambiesoft.AfterRunLib
                     List<ExeArg> exeargss,
                     int? interval,
                     List<int> pidsToWait,
-                    ProcessWindowStyle pws)
+                    ProcessWindowStyle pws,
+                    bool defaultCancel)
         {
             this._isShutdown = isShutdown;
             this._exeargs = exeargss != null ? exeargss : new List<ExeArg>();
             this._interval = interval;
             this._pidsToWait = pidsToWait;
             this._launchingProcessWindowStyle = pws;
+            this._defaultCancel = defaultCancel;
         }
         public UserInput(
                     bool isShutdown,
                     List<ExeArg> exeargss,
                     int? interval,
                     List<int> pidsToWait):
-            this(isShutdown, exeargss, interval, pidsToWait, default(ProcessWindowStyle))
+            this(isShutdown, exeargss, interval, pidsToWait, default(ProcessWindowStyle),false)
         { }
     }
 }
