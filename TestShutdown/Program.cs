@@ -21,8 +21,9 @@ namespace TestShutdown
                     false,
                     null,
                     null,
-                    null),
-                );
+                    null,
+                    System.Diagnostics.ProcessWindowStyle.Normal,
+                    false));
             Application.Run(form);
         }
     }
