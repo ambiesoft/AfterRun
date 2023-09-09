@@ -1,3 +1,7 @@
+2023/09/09 v2.0.15
+Fixed to display the waiting process ID in the title bar 
+when waiting for a process
+
 2023/04/22 v2.0.14
 Added option to not start by default
 

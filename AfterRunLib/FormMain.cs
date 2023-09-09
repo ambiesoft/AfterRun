@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using CommandLine.Utility;
 using System.Diagnostics;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using System.Linq;
 
 namespace Ambiesoft.AfterRunLib
 {
@@ -221,7 +222,9 @@ namespace Ambiesoft.AfterRunLib
             }
             else if (userInput_.PidsToWait != null)
             {
-                Text = "Wait Process" + " " + Text;
+                this.Text = string.Format(Properties.Resources.WaitingForProcessID + " " +"| {1}",
+                    string.Join(", ", userInput_.PidsToWait.Select(x => x.ToString()).ToArray()),
+                    Application.ProductName);
                 timerMain.Interval = 5000;
                 timerMain.Tag = userInput_.PidsToWait;
             }

@@ -190,7 +190,7 @@ ex: afterrun -t SecToWait -exe EXE [-arg ARG]
     <value>No executables specified for '-exe'</value>
   </data>
   <data name="PIDNotFound" xml:space="preserve">
-    <value>Process of id {0} is not found</value>
+    <value>Process with id {0} not found</value>
   </data>
   <data name="SelectExecutable" xml:space="preserve">
     <value>Select an executable file</value>
@@ -209,5 +209,8 @@ ex: afterrun -t SecToWait -exe EXE [-arg ARG]
   </data>
   <data name="UseUrlEncodeToPassArg" xml:space="preserve">
     <value>Use Url-Encoding to pass the argument</value>
+  </data>
+  <data name="WaitingForProcessID" xml:space="preserve">
+    <value>Waiting for process ID {0}</value>
   </data>
 </root>

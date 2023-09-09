@@ -250,7 +250,7 @@ namespace Ambiesoft.AfterRunLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Process of id {0} is not found.
+        ///   Looks up a localized string similar to Process with id {0} not found.
         /// </summary>
         internal static string PIDNotFound {
             get {
@@ -309,6 +309,15 @@ namespace Ambiesoft.AfterRunLib.Properties {
         internal static string UseUrlEncodeToPassArg {
             get {
                 return ResourceManager.GetString("UseUrlEncodeToPassArg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for process ID {0}.
+        /// </summary>
+        internal static string WaitingForProcessID {
+            get {
+                return ResourceManager.GetString("WaitingForProcessID", resourceCulture);
             }
         }
     }

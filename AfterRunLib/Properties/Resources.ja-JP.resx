@@ -190,7 +190,7 @@
     <value>-exe引数が指定されていません</value>
   </data>
   <data name="PIDNotFound" xml:space="preserve">
-    <value>プロセスID {0} が見つかりません</value>
+    <value>IDが {0} のプロセスは見つかりません</value>
   </data>
   <data name="SelectExecutable" xml:space="preserve">
     <value>実行ファイルを選択</value>
@@ -209,5 +209,8 @@
   </data>
   <data name="UseUrlEncodeToPassArg" xml:space="preserve">
     <value>-arg引数を渡すにはUrlエンコードを使ってください</value>
+  </data>
+  <data name="WaitingForProcessID" xml:space="preserve">
+    <value>プロセス待機 {0}</value>
   </data>
 </root>

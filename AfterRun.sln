@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AfterRunLib", "AfterRunLib\AfterRunLib.csproj", "{62A262B3-B9D9-4047-B6A9-163B3627723A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AfterRun", "AfterRun\AfterRun.csproj", "{36B2988A-44F3-4940-964C-AB9F8527414D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AfterRunLib", "AfterRunLib\AfterRunLib.csproj", "{62A262B3-B9D9-4047-B6A9-163B3627723A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestShutdown", "TestShutdown\TestShutdown.csproj", "{59058A94-5CE6-4074-8A42-040D46644D88}"
 EndProject
