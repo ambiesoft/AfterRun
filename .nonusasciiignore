@@ -4,3 +4,14 @@ README.md
 *.jpg
 *.resx
 *.html
+
+AfterRun/Properties/Resources.Designer.cs 
+AfterRun/Properties/Settings.Designer.cs
+AfterRunLib/Properties/Resources.Designer.cs
+AfterRun/Properties/Resources.Designer.cs
+AfterRunLib/Properties/Settings.Designer.cs
+AfterRun/Properties/Resources.Designer.cs
+AfterRunLib/Properties/Settings.Designer.cs
+TestShutdown/Properties/Resources.Designer.cs
+TestShutdown/Properties/Settings.Designer.cs
+
