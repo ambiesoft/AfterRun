@@ -85,8 +85,8 @@
             // 
             // cmbInterval
             // 
-            resources.ApplyResources(this.cmbInterval, "cmbInterval");
             this.cmbInterval.FormattingEnabled = true;
+            resources.ApplyResources(this.cmbInterval, "cmbInterval");
             this.cmbInterval.Name = "cmbInterval";
             this.cmbInterval.TextChanged += new System.EventHandler(this.cmbInterval_TextChanged);
             // 
