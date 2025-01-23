@@ -123,7 +123,7 @@ namespace Ambiesoft.AfterRunLib
             FormStartPosition fsp = default(FormStartPosition);
             bool defaultCancel = false;
             bool topMost = false;
-            FormWindowState aws = default(FormWindowState);
+            FormWindowState? aws = null;
             System.Diagnostics.ProcessWindowStyle pws = default(System.Diagnostics.ProcessWindowStyle);
 
             do
@@ -228,7 +228,7 @@ namespace Ambiesoft.AfterRunLib
                             return;
                         }
                         ++i;
-                        
+
                         if (args[i] == "normal")
                         {
                             aws = FormWindowState.Normal;
@@ -364,7 +364,7 @@ namespace Ambiesoft.AfterRunLib
 
             if (needsDialog == true || (!userInput.IsShutdown && userInput.ExeArgs.Count == 0))
             {
-                if(userInput.ExeArgs.Count > 1)
+                if (userInput.ExeArgs.Count > 1)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.Append(Properties.Resources.DialogNotDisplayedWhenTwoExes);
@@ -374,7 +374,7 @@ namespace Ambiesoft.AfterRunLib
                     messageWithHelp(sb.ToString());
                     return;
                 }
-                if(userInput.PidsToWait.Count> 0)
+                if (userInput.PidsToWait.Count > 0)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.Append(Properties.Resources.DialogNotDisplayedWhenPidWait);
@@ -394,7 +394,12 @@ namespace Ambiesoft.AfterRunLib
             FormMain form = new FormMain(userInput);
             form.StartPosition = fsp;
             form.TopMost = topMost;
-            form.WindowState = aws;
+            if (aws != null)
+                form.WindowState = aws ?? default(FormWindowState);
+            else if (userInput.IsStartWithMinimized)
+                form.WindowState = FormWindowState.Minimized;
+            else
+                form.WindowState = default(FormWindowState);
             Application.Run(form);
         }
     }

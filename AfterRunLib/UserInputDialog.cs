@@ -19,6 +19,7 @@ namespace Ambiesoft.AfterRunLib
         readonly string KEY_EXECUTABLE = "Executable";
         readonly string KEY_ARGUMENT = "Argument";
         readonly string KEY_INTERVAL = "Interval";
+        readonly string KEY_STARTWITHMINIMIXED = "StartWithMinimized";
         readonly string SECTION_COMBO_INTERVAL = "ComboInterval";
         readonly string SECTION_COMBO_EXE = "ComboExe";
         readonly string SECTION_COMBO_ARG = "ComboArg";
@@ -76,6 +77,12 @@ namespace Ambiesoft.AfterRunLib
                     cmbInterval.Text = s;
                 }
             }
+
+            {
+                bool boolval;
+                Profile.GetBool(SECTION_DEFAULT_VALUES, KEY_STARTWITHMINIMIXED, false, out boolval, ini);
+                chkStartWithMinimized.Checked = boolval;
+            }
         }
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -126,6 +133,8 @@ namespace Ambiesoft.AfterRunLib
                 ui_.ExeArgs[0].Arg = cmbArg.Text;
             }
 
+            ui_.IsStartWithMinimized = chkStartWithMinimized.Checked;
+
             HashIni ini = Profile.ReadAll(Program.IniPath);
             AmbLib.SaveComboBox(cmbInterval, SECTION_COMBO_INTERVAL, MAX_COMBO_SAVECOUNT, ini);
             AmbLib.SaveComboBox(cmbExe, SECTION_COMBO_EXE, MAX_COMBO_SAVECOUNT, ini);
@@ -147,7 +156,7 @@ namespace Ambiesoft.AfterRunLib
             Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_EXECUTABLE, cmbExe.Text, ini);
             Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_ARGUMENT, cmbArg.Text, ini);
             Profile.WriteString(SECTION_DEFAULT_VALUES, KEY_INTERVAL, cmbInterval.Text, ini);
-
+            Profile.WriteBool(SECTION_DEFAULT_VALUES,KEY_STARTWITHMINIMIXED,chkStartWithMinimized.Checked, ini);
             if (!Profile.WriteAll(ini, Program.IniPath))
             {
                 CppUtils.CenteredMessageBox(this,

@@ -69,6 +69,9 @@ namespace Ambiesoft.AfterRunLib
         {
             get { return _launchingProcessWindowStyle; }
         }
+        
+        public bool IsStartWithMinimized;
+        
         public UserInput(
                     bool isShutdown,
                     List<ExeArg> exeargss,

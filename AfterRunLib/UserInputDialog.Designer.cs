@@ -40,6 +40,7 @@
             this.lblExecutable = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblDurationInformation = new System.Windows.Forms.Label();
+            this.chkStartWithMinimized = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnStart
@@ -110,12 +111,19 @@
             resources.ApplyResources(this.lblDurationInformation, "lblDurationInformation");
             this.lblDurationInformation.Name = "lblDurationInformation";
             // 
+            // chkStartWithMinimized
+            // 
+            resources.ApplyResources(this.chkStartWithMinimized, "chkStartWithMinimized");
+            this.chkStartWithMinimized.Name = "chkStartWithMinimized";
+            this.chkStartWithMinimized.UseVisualStyleBackColor = true;
+            // 
             // UserInputDialog
             // 
             this.AcceptButton = this.btnStart;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
+            this.Controls.Add(this.chkStartWithMinimized);
             this.Controls.Add(this.lblDurationInformation);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblExecutable);
@@ -150,5 +158,6 @@
         private System.Windows.Forms.Label lblExecutable;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblDurationInformation;
+        private System.Windows.Forms.CheckBox chkStartWithMinimized;
     }
 }
