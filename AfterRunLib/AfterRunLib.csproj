@@ -14,7 +14,7 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -58,9 +58,9 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
-<PropertyGroup>
-  <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-</PropertyGroup>  
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ambiesoft.AmbLib">
       <HintPath>..\..\..\..\..\..\..\Linkout\DNAssembly.NET4.6.2\Ambiesoft.AmbLib.dll</HintPath>

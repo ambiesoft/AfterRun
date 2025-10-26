@@ -1,3 +1,6 @@
+2025/10/26 v3.0.1
+Upgrade .NET Framework to v4.8.1
+
 2025/10/26 v2.0.18
 Update library references
 
