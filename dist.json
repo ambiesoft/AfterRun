@@ -39,7 +39,21 @@
         "Microsoft.WindowsAPICodePack.xml",
         "history.txt",
         "README.md",
-        "ja-JP\\Ambiesoft.AfterRunLib.resources.dll"
+        "ja-JP\\Ambiesoft.AfterRunLib.resources.dll",
+		"ExCSS.dll",
+		"System.Numerics.Vectors.dll",
+		"System.Runtime.CompilerServices.Unsafe.xml",
+		"System.Net.Http.dll",
+		"System.Buffers.dll",
+		"System.Numerics.Vectors.xml",
+		"System.Buffers.xml",
+		"System.Runtime.CompilerServices.Unsafe.dll",
+		"AfterRun.exe.config",
+		"Svg.xml",
+		"System.Memory.dll",
+		"netstandard.dll",
+		"Svg.dll",
+		"System.Memory.xml"
 	],
     
     "ShouldBeOneOfThem": [],
