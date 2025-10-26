@@ -1,3 +1,6 @@
+2025/10/26 v2.0.18
+Update library references
+
 2025/01/23 v2.0.17
 Added an option 'Start with Minimized'
 
